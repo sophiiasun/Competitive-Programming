@@ -1,3 +1,5 @@
+package Algorithms;
+
 import java.util.*;
 
 public class DepthFirstSearch {

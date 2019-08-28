@@ -4,50 +4,47 @@ import java.util.*;
 
 public class ClosingTheFarmDFS_i {
 
-    static LinkedList<Integer>[] link;
-    static boolean[] aVisited;
-    static Scanner sc = new Scanner(System.in);
-    static int N = sc.nextInt(), M = sc.nextInt();
+    private static Scanner sc = new Scanner(System.in);
+    private static int N = sc.nextInt(), M = sc.nextInt();
+    private static ArrayList<int[]> link = new ArrayList<>();
+    private static int[] close = new int[N];
+    private static int[] aParent = new int[N];
+    private static int comp = 0;
 
     public static void main(String[] args) {
-        link = new LinkedList[N];
-        for (int i = 0; i < N; i++) link[i] = new LinkedList<>();
-        for (int i = 0; i < M; i++) addEdges(sc.nextInt(), sc.nextInt());
-        int[] arr = new int[N];
-        for (int i = 0; i < N; i++) arr[i] = sc.nextInt();
-        for (int i = 0; i < N; i++) {
-            if (isConnected()) System.out.println("YES");
+        for(int i = 0; i < M; i++)
+            link.add(new int[] {sc.nextInt(), sc.nextInt()});
+        for(int i = 0; i < N; i++)
+            close[i] = sc.nextInt();
+        for(int i = 0; i < N; i++){
+            doDSU();
+            if(comp == 1) System.out.println("YES");
             else System.out.println("NO");
-            for (int j = 0; j < link.length; i++) {
-                if (link[j].get(0) == arr[j]) link[j].set(0, -2);
-                if (link[j].get(1) == arr[j]) link[j].set(1, -2);
+            for(int j = 0; j < link.size(); j++){
+                if(link.get(j)[0] == close[i] || link.get(j)[1] == close[i]) {
+                    link.get(j)[0] = -1;
+                    link.get(j)[1] = -1;
+                }
             }
         }
     }
 
-    static boolean isConnected() {
-        boolean cnct = true;
-        Arrays.fill(aVisited, false);
-        doDFS(0);
-        for (int i = 0; i < aVisited.length; i++) {
-            if (!aVisited[i]) {
-                cnct = false;
-                break;
+    private static void doDSU(){
+        comp = aParent.length;
+        for(int i = 0; i < aParent.length; i++) {
+            aParent[i] = i;
+        }
+        for(int i = 0; i < link.size(); i++) {
+            mergeSets(link.get(i)[0], link.get(i)[1]);
+        }
+    }
+
+    private static void mergeSets(int A, int B){
+        if (aParent[A] != aParent[B]) {
+            comp--;
+            for(int i = 0; i < aParent.length; i++) {
+                if(aParent[i] == A) aParent[i] = B;
             }
         }
-        return cnct;
-    }
-
-    static void doDFS(int iN) {
-        aVisited[iN] = true;
-        for (int i = 0; i < link[iN].size(); i++) {
-            int iNext = link[iN].get(i);
-            if (!aVisited[iNext]) doDFS(iNext);
-        }
-    }
-
-    static void addEdges(int iBarn, int iLink) {
-        link[iBarn].add(iLink);
-        link[iLink].add(iBarn);
     }
 }

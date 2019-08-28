@@ -1,3 +1,5 @@
+package Algorithms;
+
 import java.util.*;
 
 public class DisjointSetUnion {
@@ -62,13 +64,6 @@ public class DisjointSetUnion {
             }
         }
         return bRet;
-    }
-
-    public static int getNumOfComponents() {
-        HashSet<Integer> oPar = new HashSet<Integer>();
-        for(int i = 0; i < aParent.length; i++)
-            oPar.add(aParent[i]);
-        return oPar.size();
     }
 
     public static void printComp() {
