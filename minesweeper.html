@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+	function createGrid() {
+		var grid = document.getElementById("grid")
+		var width=parseInt(document.getElementById("width").value)
+		var height=parseInt(document.getElementById("height").value)
+		if(width<10 || height<10) {
+			alert("Minimum value for width and height is 10.")
+			return
+		}
+		var value="<table style='border-collapse:collapse'>"
+		for(var i = 0; i < height; i++) {
+			value+="<tr>"
+			for(var j = 0; j < width; j++) {
+				value+="<td style='line-height:0px;padding:0px'>"
+				value+="<input type='button' style='width:30px; height:30px'>"
+				value+="</td>"
+			}
+			value+="</tr>"
+		}
+		value+="</table>"
+		grid.innerHTML=value
+	}
+</script>
+</head>
+<body>
+	<h2> MINESWEEPER </h2>
+	width: <input id="width" value="10">
+	height: <input id="height" value="10">
+	<input type="button" value="Create" onclick="createGrid()">
+	<p>	
+	<div id="grid">
+	</p>
+</body>
+<script type="text/javascript">
+	createGrid()
+</script>
