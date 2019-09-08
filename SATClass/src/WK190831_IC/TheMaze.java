@@ -35,36 +35,36 @@ public class TheMaze {
     }
 
     private static boolean floodFill(int r, int c, int[] E, char[][] grid) {
-        if(grid[r][c] != '.')
+        if (grid[r][c] != '.')
             return false;
         else {
             Queue<int[]> qFill = new LinkedList<>();
-            qFill.add(new int[] {r, c});
+            qFill.add(new int[]{r, c});
             grid[r][c] = 'A';
             while (!qFill.isEmpty()) {
                 int[] temp = qFill.poll();
                 if (temp[0] + 1 < R) {
                     if (grid[temp[0] + 1][temp[1]] == '.') {
                         grid[temp[0] + 1][temp[1]] = 'A';
-                        qFill.add(new int[] {temp[0] + 1, temp[1]});
+                        qFill.add(new int[]{temp[0] + 1, temp[1]});
                     }
                 }
                 if (temp[0] - 1 >= 0) {
                     if (grid[temp[0] - 1][temp[1]] == '.') {
                         grid[temp[0] - 1][temp[1]] = 'A';
-                        qFill.add(new int[] {temp[0] - 1, temp[1]});
+                        qFill.add(new int[]{temp[0] - 1, temp[1]});
                     }
                 }
                 if (temp[1] + 1 < C) {
                     if (grid[temp[0]][temp[1] + 1] == '.') {
                         grid[temp[0]][temp[1] + 1] = 'A';
-                        qFill.add(new int[] {temp[0], temp[1] + 1});
+                        qFill.add(new int[]{temp[0], temp[1] + 1});
                     }
                 }
                 if (temp[1] - 1 >= 0) {
                     if (grid[temp[0]][temp[1] - 1] == '.') {
                         grid[temp[0]][temp[1] - 1] = 'A';
-                        qFill.add(new int[] {temp[0], temp[1] - 1});
+                        qFill.add(new int[]{temp[0], temp[1] - 1});
                     }
                 }
             }
@@ -80,5 +80,4 @@ public class TheMaze {
         }
         return false;
     }
-
 }
