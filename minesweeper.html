@@ -2,26 +2,78 @@
 <html>
 <head>
 <script type="text/javascript">
-	function createGrid() {
+	var game
+	var numB
+	function createGrid(){
+		var width = parseInt(document.getElementById("width").value)
+		var height = parseInt(document.getElementById("height").value)
+		drawGrid(width, height)
+		addBomb(width, height)
+		fillGrid(width, height)
+		document.write(hi)
+		console.log(hi)
+	}
+	function drawGrid(width, height){
 		var grid = document.getElementById("grid")
-		var width=parseInt(document.getElementById("width").value)
-		var height=parseInt(document.getElementById("height").value)
 		if(width<10 || height<10) {
 			alert("Minimum value for width and height is 10.")
-			return
+			return;
 		}
 		var value="<table style='border-collapse:collapse'>"
 		for(var i = 0; i < height; i++) {
 			value+="<tr>"
 			for(var j = 0; j < width; j++) {
 				value+="<td style='line-height:0px;padding:0px'>"
-				value+="<input type='button' style='width:30px; height:30px'>"
+				value+="<input type='button' style='width:30px; height:30px' id='"+i+"-"+j+"'>"
 				value+="</td>"
 			}
 			value+="</tr>"
 		}
 		value+="</table>"
 		grid.innerHTML=value
+	}
+	function addBomb(width, height){
+		var numB = Math.round(width * height / 10)
+		for(var i = 0; i < numB; i++) {
+			var tmpR = Math.round(Math.random() * height)
+			var tmpC = Math.round(Math.random() * width)
+			if(game[tmpR][tmpC] != "-1") {
+				game[tmpR][tmpC] = "-1"
+			} else {
+				i--;
+			}
+		}
+	}
+	function fillGrid(width, height) {
+		for(var i = 0; i < height; i++) {
+			for(var j = 0; j < width; j++) {
+				if (game[i][j] == "-1") {
+					continue
+				} else {
+					game[i][j] = chkArea(width, height)
+				}
+			}
+		}
+	}
+	function chkArea(W, H) {
+		var counter = 0;
+		if (game[H-1][W-1] == "-1") 
+			counter++;
+		if (game[H-1][W] == "-1")
+			counter++;
+		if (game[H-1][W+1] == "-1")
+			counter++;
+		if (game[H][W-1] == "-1")
+			counter++
+		if (game[H][W+1] == "-1")
+			counter++
+		if (game[H+1][W-1] == "-1")
+			counter++
+		if (game[H+1][W] == "-1")
+			counter++
+		if (game[H+1][W+1] == "-1")
+			counter++
+		return counter
 	}
 </script>
 </head>
@@ -30,10 +82,13 @@
 	width: <input id="width" value="10">
 	height: <input id="height" value="10">
 	<input type="button" value="Create" onclick="createGrid()">
+
 	<p>	
-	<div id="grid">
+	<div id="grid"> </div>
 	</p>
+	=================================================
 </body>
 <script type="text/javascript">
 	createGrid()
+	console.log("hi")
 </script>
