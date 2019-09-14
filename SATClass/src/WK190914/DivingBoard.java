@@ -8,6 +8,10 @@ public class DivingBoard {
         int K = sc.nextInt();
         int L = sc.nextInt();
         int S = sc.nextInt();
-
+        int cnt = 0;
+        ArrayList<char[]> arr = new ArrayList<>();
+        while (cnt != Math.pow(2, K)) {
+            char[] temp = new char[K];
+        }
     }
 }

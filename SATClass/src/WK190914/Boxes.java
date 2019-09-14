@@ -29,7 +29,7 @@ public class Boxes { //must input N, then height, then width, then depth
         System.out.print(cnt);
     }
 
-    private static int chkHWD(int i, int marker) {
+    private static int chkHWD (int i, int marker) {
         if (arr[i][0] < arr[marker][0]) {
             if (arr[i][1] < arr[marker][1]) {
                 if (arr[i][2] < arr[marker][2]) {

@@ -8,6 +8,6 @@ public class Parentheses {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         ArrayList<int[]> out = new ArrayList<>();
-        
+
     }
 }
