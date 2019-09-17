@@ -25,11 +25,11 @@
             alert("Minimum value for width and height is 10.")
             return;
         }
-        var value="<table style='border-collapse:collapse'>"
+        var value="<table style='border-collapse:collapse;border-style:inset'>"
         for(var i = 0; i < height; i++) {
             value+="<tr>"
             for(var j = 0; j < width; j++) {
-                value+="<td style='line-height:0px;padding:0px'>"
+                value+="<td id='"+i+"="+j+"'style='line-height:0px;padding:0px;border-style:inset'>"
                 value+="<input type='button' style='width:30px; height:30px' id='"+i+"-"+j+"' onclick=clickButton(this)>"
                 value+="</td>"
             }
@@ -159,17 +159,20 @@
     }
     function chkVal(h, w) {
         if (game[h][w] == 0) {
+            revealValue(h, w)
             game[h][w] = -2
             qZero.push([h, w])
         } else {
+            revealValue(h, w)
             game[h][w] = -2
         }
-        revealValue(h, w)
     }
     function revealValue(h, w) {
-        var string = h + "-" + w
-        document.getElementById(string).style.visibility+='hidden'
-        document.getElementById(string).outerHTML = ""
+        var strB = h + "-" + w
+        var strG = h + "=" + w
+        document.getElementById(strB).style.visibility+='hidden'
+        document.getElementById(strB).outerHTML = ""
+        document.getElementById(strG).innerHTML = game[h][w] 
     }
 
 </script>
