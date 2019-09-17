@@ -6,7 +6,6 @@
     var numB
     var width, height
     var qZero = []
-    var qElse = []
     var grid
     function createGrid(){
         width = parseInt(document.getElementById("width").value)
@@ -44,8 +43,8 @@
         for(var i = 0; i < numB; i++) {
             var tmpR = Math.round(Math.random() * (height-1))
             var tmpC = Math.round(Math.random() * (width-1))
-            if(game[tmpR][tmpC] != "-1") {
-                game[tmpR][tmpC] = "-1"
+            if(game[tmpR][tmpC] != -1) {
+                game[tmpR][tmpC] = -1
             } else {
                 i--;
             }
@@ -54,7 +53,7 @@
     function fillGrid() {
         for(var i = 0; i < height; i++) {
             for(var j = 0; j < width; j++) {
-                if (game[i][j] == "-1") {
+                if (game[i][j] == -1) {
                     continue
                 } else {
                     game[i][j] = chkArea(i, j)
@@ -66,39 +65,38 @@
         var counter = 0;
         if (H - 1 >= 0) { 
             if (W - 1 >= 0) {
-                if (game[H-1][W-1] == "-1") 
+                if (game[H-1][W-1] == -1) 
                     counter++;
             }
-            if (game[H-1][W] == "-1")
+            if (game[H-1][W] == -1)
                 counter++;
             if (W + 1 < width) {
-                if (game[H-1][W+1] == "-1")
+                if (game[H-1][W+1] == -1)
                     counter++;
             }
         }
         if (W - 1 >= 0) {
-            if (game[H][W-1] == "-1")
+            if (game[H][W-1] == -1)
                 counter++
         }
         if (W + 1 < width) {
-            if (game[H][W+1] == "-1")
+            if (game[H][W+1] == -1)
                 counter++
         }
         if (H + 1 < height) {
             if (W - 1 >= 0) {
-                if (game[H+1][W-1] == "-1")
+                if (game[H+1][W-1] == -1)
                     counter++
             }
-            if (game[H+1][W] == "-1")
+            if (game[H+1][W] == -1)
                 counter++
             if (W + 1 < width) {
-                if (game[H+1][W+1] == "-1")
+                if (game[H+1][W+1] == -1)
                     counter++
             }
         }
         return counter
     }
-
     function debug() {
         var debug = document.getElementById("debug")
         var debuginfo = ""
@@ -110,21 +108,21 @@
         }
         debug.innerHTML = debuginfo
     }
-
     function clickButton(button) {
         var temp = button.id
-        var h = temp.slice(0, 1)
-        var w = temp.slice(2)
+        var h = parseInt(temp.slice(0, 1))
+        var w = parseInt(temp.slice(2))
         var val = game[h][w]
-        if (val == "-1") {
+        alert(temp + " : " + val)
+
+        if (val == -1) {
             gameOver()
-        } else if (val == "0") {
+        } else if (val == 0) {
             floodFill(h, w)
-        } else if (val >= "1") {
-            revealValue()   
+        } else if (val >= 1) {
+            revealValue(h, w)   
         } 
     }
-
     function gameOver(counter) {
         if (counter == numB) {
             alert("You've won!")
@@ -132,53 +130,46 @@
             alert("You've lost!")
         }
     }
-
     function floodFill(h, w) {
-        var temp = []
+        var temp = []  
         qZero.push([h, w])
-        game[h][w] = "-2"
         while (qZero.length > 0) {
             temp = qZero.shift()
             if (temp[0] - 1 >= 0) {
                 if (temp[1] - 1 >= 0)
-                    chkVal(temp, temp[0] - 1, temp[1] - 1)
-                if (temp[1] + 1 < w)
-                    chkVal(temp, temp[0] - 1, temp[1] + 1)
-                chkVal(temp, temp[0] - 1, temp[1])
+                    chkVal(temp[0] - 1, temp[1] - 1)
+                if (temp[1] + 1 < width)
+                    chkVal(temp[0] - 1, temp[1] + 1)
+                chkVal(temp[0] - 1, temp[1])
             }
+
             if (temp[1] - 1 >= 0) 
-                chkVal(temp, temp[0], temp[1] - 1)
-            if (temp[1] + 1 < w)
-                chkVal(temp, temp[0], temp[1] + 1)
-            if (temp[0] + 1 < w) {
+                chkVal(temp[0], temp[1] - 1)
+            if (temp[1] + 1 < width)
+                chkVal(temp[0], temp[1] + 1)
+
+            if (temp[0] + 1 < height) {
                 if (temp[1] - 1 >= 0)
-                    chkVal(temp, temp[0] + 1, temp[1] - 1)
-                if (temp[1] + 1 < w) 
-                    chkVal(temp, temp[0] + 1, temp[1] + 1)
-                chkVal(temp, temp[0] + 1, temp[1])
+                    chkVal(temp[0] + 1, temp[1] - 1)
+                if (temp[1] + 1 < width) 
+                    chkVal(temp[0] + 1, temp[1] + 1)
+                chkVal(temp[0] + 1, temp[1])
             }
         }
-        while (qElse.length > 0) {
-            temp = qElse.shift()
-            game[temp[0]][temp[1]] = "-2"
-        }
     }
-
-    function chkVal(temp, h, w) {
-        if (temp[h][w] == 0) {
+    function chkVal(h, w) {
+        if (game[h][w] == 0) {
+            game[h][w] = -2
             qZero.push([h, w])
-            game[h][w] = "-2"
-            revealValue()
-        }else {
-            qElse.push([h, w])
-            game[h][w] = "-2"
-            revealValue()
+        } else {
+            game[h][w] = -2
         }
+        revealValue(h, w)
     }
-
     function revealValue(h, w) {
         var string = h + "-" + w
-        document.getElementById("string").style.visibility+='block'    
+        document.getElementById(string).style.visibility+='hidden'
+        document.getElementById(string).outerHTML = ""
     }
 
 </script>

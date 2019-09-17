@@ -18,16 +18,22 @@ public class BoxesNew {
 
         Arrays.sort(arr, (a, b) -> Double.compare(a[0], b[0]));
 
-        int[] counter = new int[N];
-        counter[0] = 1;
-        for(int i = 1; i < N; i++) {
-
+        int[] aCnt = new int[N];
+        for(int i = 0; i < N; i++) {
+            if (i == 0)
+                aCnt[i] = 1;
+            else
+                aCnt[i] = getLargestStack(i, aCnt);
         }
     }
 
-    private static int getLargestStack(int N) {
-        int max;
-        while ()
+    private static int getLargestStack(int N, int[] aCnt) {
+        int iRet = 1;
+        for (int i = 0; i < N; i++) {
+            if (arr[i] < arr[N] && aCnt[i] + 1) {
+
+            }
+        }
     }
 
 }
