@@ -39,7 +39,7 @@
         grid.innerHTML=value
     }
     function addBomb(){
-        numB = Math.round(width * height / 25 * 2)
+        numB = Math.round(width * height * 0.15)
         for(var i = 0; i < numB; i++) {
             var tmpR = Math.round(Math.random() * (height-1))
             var tmpC = Math.round(Math.random() * (width-1))
@@ -113,17 +113,13 @@
         var h = parseInt(temp.slice(0, 1))
         var w = parseInt(temp.slice(2))
         var val = game[h][w]
-        alert(temp + " : " + val)
-        var strB = h +  "-" + w
-        document.getElementById(strB).style.visibility+='hidden'
-        document.getElementById(strB).outerHTML = ""
-        game[h][w] = -2
         if (val == -1) {
             gameOver()
         } else if (val == 0) {
             floodFill(h, w)
         } else if (val >= 1) {
             eraseButton(h, w)   
+            printValue(h, w)
         } 
     }
     function gameOver(counter) {
@@ -135,14 +131,16 @@
     }
     function floodFill(h, w) {
         var temp = []  
+        game[h][w] = -2
+        eraseButton(h, w)
         qZero.push([h, w])
         while (qZero.length > 0) {
             temp = qZero.shift()
             if (temp[0] - 1 >= 0) {
                 if (temp[1] - 1 >= 0)
-                    chkVal(temp[0] - 1, temp[1] - 1)
+                    cornerVal(temp[0] - 1, temp[1] - 1)
                 if (temp[1] + 1 < width)
-                    chkVal(temp[0] - 1, temp[1] + 1)
+                    cornerVal(temp[0] - 1, temp[1] + 1)
                 chkVal(temp[0] - 1, temp[1])
             }
 
@@ -153,9 +151,9 @@
 
             if (temp[0] + 1 < height) {
                 if (temp[1] - 1 >= 0)
-                    chkVal(temp[0] + 1, temp[1] - 1)
+                    cornerVal(temp[0] + 1, temp[1] - 1)
                 if (temp[1] + 1 < width) 
-                    chkVal(temp[0] + 1, temp[1] + 1)
+                    cornerVal(temp[0] + 1, temp[1] + 1)
                 chkVal(temp[0] + 1, temp[1])
             }
         }
@@ -172,13 +170,14 @@
             game[h][w] = -2
         } 
     }
+    function cornerVal(h, w) {
+        if (game[h][w] >= 1) {
+            chkVal(h, w)
+        }
+    }
     function eraseButton(h, w) {
         var strB = h +  "-" + w
-        if (document.getElementById(strB) != null)
-            document.getElementById(strB).style.visibility+='hidden'
-        else
-            alert("wrong")
-        document.getElementById(strB).outerHTML = ""
+        document.getElementById(strB).style.visibility+='hidden'
     }
     function printValue(h, w) {
         var strG = h + "=" + w
@@ -186,7 +185,6 @@
     }
     function printSpace(h, w) {
         var strG = h + "=" + w
-        document.getElementById(strG).innerHTML = " " 
     }
 
 </script>
