@@ -30,13 +30,23 @@
             value+="<tr>"
             for(var j = 0; j < width; j++) {
                 value+="<td id='"+i+"="+j+"'style='line-height:0px;padding:0px;border-style:inset;text-align:center'>"
-                value+="<input type='button' style='width:30px; height:30px' id='"+i+"-"+j+"' onclick=clickButton(this)>"
+                value+="<input type='button' style='width:30px; height:30px' id='"+i+"-"+j+"' onmousedown=whichMouse(this,event)>"
                 value+="</td>"
             }
             value+="</tr>"
         }
         value+="</table>"
         grid.innerHTML=value
+    }
+    function whichMouse(button,event) {
+        var temp = button.id
+        var h = parseInt(temp.slice(0, 1))
+        var w = parseInt(temp.slice(2))
+        if (event.button == 0) {
+            clickButton(button)
+        } else if (event.button == 2) {
+            document.getElementById(strB).innerHTML="X"
+        }
     }
     function addBomb(){
         numB = Math.round(width * height * 0.15)
