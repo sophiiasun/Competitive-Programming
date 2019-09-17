@@ -29,7 +29,7 @@
         for(var i = 0; i < height; i++) {
             value+="<tr>"
             for(var j = 0; j < width; j++) {
-                value+="<td id='"+i+"="+j+"'style='line-height:0px;padding:0px;border-style:inset'>"
+                value+="<td id='"+i+"="+j+"'style='line-height:0px;padding:0px;border-style:inset;text-align:center'>"
                 value+="<input type='button' style='width:30px; height:30px' id='"+i+"-"+j+"' onclick=clickButton(this)>"
                 value+="</td>"
             }
@@ -114,13 +114,16 @@
         var w = parseInt(temp.slice(2))
         var val = game[h][w]
         alert(temp + " : " + val)
-
+        var strB = h +  "-" + w
+        document.getElementById(strB).style.visibility+='hidden'
+        document.getElementById(strB).outerHTML = ""
+        game[h][w] = -2
         if (val == -1) {
             gameOver()
         } else if (val == 0) {
             floodFill(h, w)
         } else if (val >= 1) {
-            revealValue(h, w)   
+            eraseButton(h, w)   
         } 
     }
     function gameOver(counter) {
@@ -159,20 +162,31 @@
     }
     function chkVal(h, w) {
         if (game[h][w] == 0) {
-            revealValue(h, w)
+            eraseButton(h, w)
             game[h][w] = -2
             qZero.push([h, w])
-        } else {
-            revealValue(h, w)
+            printSpace(h, w)
+        } else if (game[h][w] >= 1) {
+            eraseButton(h, w)
+            printValue(h, w)
             game[h][w] = -2
-        }
+        } 
     }
-    function revealValue(h, w) {
-        var strB = h + "-" + w
-        var strG = h + "=" + w
-        document.getElementById(strB).style.visibility+='hidden'
+    function eraseButton(h, w) {
+        var strB = h +  "-" + w
+        if (document.getElementById(strB) != null)
+            document.getElementById(strB).style.visibility+='hidden'
+        else
+            alert("wrong")
         document.getElementById(strB).outerHTML = ""
+    }
+    function printValue(h, w) {
+        var strG = h + "=" + w
         document.getElementById(strG).innerHTML = game[h][w] 
+    }
+    function printSpace(h, w) {
+        var strG = h + "=" + w
+        document.getElementById(strG).innerHTML = " " 
     }
 
 </script>
