@@ -7,6 +7,8 @@
     var width, height
     var qZero = []
     var grid
+    var bLoc = []
+    var bCnt = 0
     function createGrid(){
         width = parseInt(document.getElementById("width").value)
         height = parseInt(document.getElementById("height").value)
@@ -38,15 +40,21 @@
         value+="</table>"
         grid.innerHTML=value
     }
-    function whichMouse(button,event) {
+    function whichMouse(button, event) {
         var temp = button.id
         var h = parseInt(temp.slice(0, 1))
         var w = parseInt(temp.slice(2))
-        if (event.button == 0) {
+        if (event.shiftKey) {
+            alert("shifted")
+            var strB = h +  "-" + w
+            document.getElementById(strB).innerHTML = 'X'
+            bCnt++
+            if (bCnt == numB) {
+                alert("You're won! Start a new game.")
+            }
+        } else {
             clickButton(button)
-        } else if (event.button == 2) {
-            document.getElementById(strB).innerHTML="X"
-        }
+        } 
     }
     function addBomb(){
         numB = Math.round(width * height * 0.15)
@@ -55,6 +63,7 @@
             var tmpC = Math.round(Math.random() * (width-1))
             if(game[tmpR][tmpC] != -1) {
                 game[tmpR][tmpC] = -1
+                bLoc.push([tmpR, tmpC])
             } else {
                 i--;
             }
@@ -124,25 +133,18 @@
         var w = parseInt(temp.slice(2))
         var val = game[h][w]
         if (val == -1) {
-            gameOver()
+            revealBomb()
+            alert("You've Lost!")
         } else if (val == 0) {
             floodFill(h, w)
         } else if (val >= 1) {
-            eraseButton(h, w)   
-            printValue(h, w)
+            revealValue(h, w)
         } 
-    }
-    function gameOver(counter) {
-        if (counter == numB) {
-            alert("You've won!")
-        } else {
-            alert("You've lost!")
-        }
     }
     function floodFill(h, w) {
         var temp = []  
+        revealValue(h, w)
         game[h][w] = -2
-        eraseButton(h, w)
         qZero.push([h, w])
         while (qZero.length > 0) {
             temp = qZero.shift()
@@ -169,32 +171,39 @@
         }
     }
     function chkVal(h, w) {
-        if (game[h][w] == 0) {
-            eraseButton(h, w)
-            game[h][w] = -2
+        if (game[h][w] == 0) 
             qZero.push([h, w])
-            printSpace(h, w)
-        } else if (game[h][w] >= 1) {
-            eraseButton(h, w)
-            printValue(h, w)
-            game[h][w] = -2
-        } 
+        revealValue(h, w)
+        game[h][w] = -2
     }
     function cornerVal(h, w) {
         if (game[h][w] >= 1) {
             chkVal(h, w)
+        }   
+    }
+    function revealValue(h, w) {
+        if (game[h][w] == 0) {
+            var strB = h +  "-" + w
+            document.getElementById(strB).style.visibility+='hidden'
+        } else if (game[h][w] >= 1) {
+            var strG = h + "=" + w
+            var strB = h +  "-" + w
+            document.getElementById(strB).style.visibility+='hidden'
+            document.getElementById(strG).innerHTML = game[h][w] 
         }
     }
-    function eraseButton(h, w) {
-        var strB = h +  "-" + w
-        document.getElementById(strB).style.visibility+='hidden'
-    }
-    function printValue(h, w) {
-        var strG = h + "=" + w
-        document.getElementById(strG).innerHTML = game[h][w] 
-    }
-    function printSpace(h, w) {
-        var strG = h + "=" + w
+    function revealBomb() {
+        var tmpR, tmpC
+        for (var i = 0; i < bLoc.length; i++) {
+            tmpR = bLoc.shift(i)[0] 
+            tmpC = bLoc.shift(i)[1] 
+            var strB = tmpR +  "-" + tmpC   
+            try {
+                document.getElementById(strB).innerHTML = 'X'
+            } finally {
+                null
+            }
+        }   
     }
 
 </script>
@@ -207,7 +216,6 @@
     <p> 
     <div id="grid"> </div>
     </p>
-    =================================================
 </body>
 <div id="debug"></div>
 </html>
