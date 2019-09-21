@@ -2,7 +2,7 @@ package WK190831_IC;
 
 import java.util.*;
 
-public class BucketFill {
+public class        BucketFill {
 
     static private Queue<int[]> qChg = new LinkedList<>();
     static private Scanner sc = new Scanner(System.in);

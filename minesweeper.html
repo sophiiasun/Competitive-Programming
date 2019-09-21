@@ -21,6 +21,15 @@
         fillGrid()
         debug()
     }
+    function revealBomb() {
+        var tmpR, tmpC
+        for (var i = 0; i < bLoc.length; i++) {
+            tmpR = bLoc[i][0] 
+            tmpC = bLoc[i][1]
+            var strB = tmpR +  "-" + tmpC   
+            document.getElementById(strB).value = 'X'
+        }   
+    }   
     function drawGrid(){
         grid = document.getElementById("grid")
         if(width<10 || height<10) {
@@ -32,7 +41,7 @@
             value+="<tr>"
             for(var j = 0; j < width; j++) {
                 value+="<td id='"+i+"="+j+"'style='line-height:0px;padding:0px;border-style:inset;text-align:center'>"
-                value+="<input type='button' style='width:30px; height:30px' id='"+i+"-"+j+"' onmousedown=whichMouse(this,event)>"
+                value+="<input type='button' style='width:30px; height:30px; font-weight:bold' id='"+i+"-"+j+"' onmousedown=whichMouse(this,event)>"
                 value+="</td>"
             }
             value+="</tr>"
@@ -45,10 +54,12 @@
         var h = parseInt(temp.slice(0, 1))
         var w = parseInt(temp.slice(2))
         if (event.shiftKey) {
-            alert("shifted")
-            var strB = h +  "-" + w
-            document.getElementById(strB).innerHTML = 'X'
-            bCnt++
+            var btn = document.getElementById(temp)
+            if (document.getElementById(temp).value == 'X') {
+                document.getElementById(temp).value = ''
+            } else {
+                document.getElementById(temp).value = 'X'
+            }
             if (bCnt == numB) {
                 alert("You're won! Start a new game.")
             }
@@ -120,9 +131,8 @@
         var debug = document.getElementById("debug")
         var debuginfo = ""
         for (var i = 0; i < height; i++) {
-            for(var j = 0; j < width; j++) {
+            for(var j = 0; j < width; j++) 
                 debuginfo+=game[i][j] + " "
-            }
             debuginfo+="<br>"
         }
         debug.innerHTML = debuginfo
@@ -134,12 +144,9 @@
         var val = game[h][w]
         if (val == -1) {
             revealBomb()
-            alert("You've Lost!")
-        } else if (val == 0) {
-            floodFill(h, w)
-        } else if (val >= 1) {
-            revealValue(h, w)
-        } 
+            alert("You've Lost!") }
+        else if (val == 0) floodFill(h, w)
+        else if (val >= 1) revealValue(h, w)
     }
     function floodFill(h, w) {
         var temp = []  
@@ -149,23 +156,15 @@
         while (qZero.length > 0) {
             temp = qZero.shift()
             if (temp[0] - 1 >= 0) {
-                if (temp[1] - 1 >= 0)
-                    cornerVal(temp[0] - 1, temp[1] - 1)
-                if (temp[1] + 1 < width)
-                    cornerVal(temp[0] - 1, temp[1] + 1)
+                if (temp[1] - 1 >= 0) cornerVal(temp[0] - 1, temp[1] - 1)
+                if (temp[1] + 1 < width) cornerVal(temp[0] - 1, temp[1] + 1)
                 chkVal(temp[0] - 1, temp[1])
             }
-
-            if (temp[1] - 1 >= 0) 
-                chkVal(temp[0], temp[1] - 1)
-            if (temp[1] + 1 < width)
-                chkVal(temp[0], temp[1] + 1)
-
+            if (temp[1] - 1 >= 0) chkVal(temp[0], temp[1] - 1)
+            if (temp[1] + 1 < width) chkVal(temp[0], temp[1] + 1)
             if (temp[0] + 1 < height) {
-                if (temp[1] - 1 >= 0)
-                    cornerVal(temp[0] + 1, temp[1] - 1)
-                if (temp[1] + 1 < width) 
-                    cornerVal(temp[0] + 1, temp[1] + 1)
+                if (temp[1] - 1 >= 0) cornerVal(temp[0] + 1, temp[1] - 1)
+                if (temp[1] + 1 < width) cornerVal(temp[0] + 1, temp[1] + 1)
                 chkVal(temp[0] + 1, temp[1])
             }
         }
@@ -173,6 +172,9 @@
     function chkVal(h, w) {
         if (game[h][w] == 0) 
             qZero.push([h, w])
+        else if (game[h][w] >= 1) {
+            
+        }
         revealValue(h, w)
         game[h][w] = -2
     }
@@ -192,26 +194,15 @@
             document.getElementById(strG).innerHTML = game[h][w] 
         }
     }
-    function revealBomb() {
-        var tmpR, tmpC
-        for (var i = 0; i < bLoc.length; i++) {
-            tmpR = bLoc.shift(i)[0] 
-            tmpC = bLoc.shift(i)[1] 
-            var strB = tmpR +  "-" + tmpC   
-            try {
-                document.getElementById(strB).innerHTML = 'X'
-            } finally {
-                null
-            }
-        }   
-    }
+    
 
 </script>
 </head>
 <body>
     <h2> MINESWEEPER </h2>
-    width: <input id="width" value="10">
-    height: <input id="height" value="10">
+    Width: <input id="width" value="20">
+
+    Height: <input id="height" value="20">
     <input type="button" value="Create" onclick="createGrid()">
     <p> 
     <div id="grid"> </div>
