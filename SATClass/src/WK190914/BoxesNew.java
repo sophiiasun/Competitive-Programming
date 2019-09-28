@@ -22,18 +22,18 @@ public class BoxesNew {
         for(int i = 0; i < N; i++) {
             if (i == 0)
                 aCnt[i] = 1;
-            else
-                aCnt[i] = getLargestStack(i, aCnt);
+            else {}
+//                aCnt[i] = getLargestStack(i, aCnt);
         }
     }
 
-    private static int getLargestStack(int N, int[] aCnt) {
-        int iRet = 1;
-        for (int i = 0; i < N; i++) {
-            if (arr[i] < arr[N] && aCnt[i] + 1) {
-
-            }
-        }
-    }
+//    private static int getLargestStack(int N, int[] aCnt) {
+//        int iRet = 1;
+//        for (int i = 0; i < N; i++) {
+//            if (arr[i] < arr[N] && aCnt[i] + 1) {
+//
+//            }
+//        }
+//    }
 
 }

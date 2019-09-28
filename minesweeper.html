@@ -156,15 +156,15 @@
         while (qZero.length > 0) {
             temp = qZero.shift()
             if (temp[0] - 1 >= 0) {
-                if (temp[1] - 1 >= 0) cornerVal(temp[0] - 1, temp[1] - 1)
-                if (temp[1] + 1 < width) cornerVal(temp[0] - 1, temp[1] + 1)
+                if (temp[1] - 1 >= 0) chkVal(temp[0] - 1, temp[1] - 1)
+                if (temp[1] + 1 < width) chkVal(temp[0] - 1, temp[1] + 1)
                 chkVal(temp[0] - 1, temp[1])
             }
             if (temp[1] - 1 >= 0) chkVal(temp[0], temp[1] - 1)
             if (temp[1] + 1 < width) chkVal(temp[0], temp[1] + 1)
             if (temp[0] + 1 < height) {
-                if (temp[1] - 1 >= 0) cornerVal(temp[0] + 1, temp[1] - 1)
-                if (temp[1] + 1 < width) cornerVal(temp[0] + 1, temp[1] + 1)
+                if (temp[1] - 1 >= 0) chkVal(temp[0] + 1, temp[1] - 1)
+                if (temp[1] + 1 < width) chkVal(temp[0] + 1, temp[1] + 1)
                 chkVal(temp[0] + 1, temp[1])
             }
         }
@@ -172,29 +172,17 @@
     function chkVal(h, w) {
         if (game[h][w] == 0) 
             qZero.push([h, w])
-        else if (game[h][w] >= 1) {
-            
-        }
         revealValue(h, w)
         game[h][w] = -2
     }
-    function cornerVal(h, w) {
-        if (game[h][w] >= 1) {
-            chkVal(h, w)
-        }   
-    }
     function revealValue(h, w) {
-        if (game[h][w] == 0) {
-            var strB = h +  "-" + w
-            document.getElementById(strB).style.visibility+='hidden'
-        } else if (game[h][w] >= 1) {
+        var strB = h +  "-" + w
+        document.getElementById(strB).style.visibility =    'hidden'
+        if (game[h][w] >= 1) {
             var strG = h + "=" + w
-            var strB = h +  "-" + w
-            document.getElementById(strB).style.visibility+='hidden'
             document.getElementById(strG).innerHTML = game[h][w] 
         }
     }
-    
 
 </script>
 </head>
