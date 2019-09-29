@@ -20,20 +20,19 @@ public class CowDanceShow {
             iQtemp = new LinkedList<>(iQ);
             for (int j = 0; j < i; j++)
                 stage.add(iQtemp.poll());
-            while (!iQtemp.isEmpty()) {
-                int iC = stage.poll();
-                int iN = stage.poll();
-                while (iN == iC) {
-                    stage.add (iQtemp.poll());
-                    iN = stage.poll();
-                }
-                Tm += iC;
-                iC = iN;
+            int iC = stage.poll();
+            for (int t = 0; t < T; t++) {
+                if (iC == t) {
+                    stage.add(iQtemp.poll());
+                    int iN = stage.poll();
+                    while (iN == t) {
+                        stage.add(iQtemp.poll());
+                        iN = stage.poll();
+                    }
+                    iC = iN;
+                } else iC = stage.poll();
             }
-            if (Tm <= T) K = i;
-            else break;
         }
-
         System.out.println(K);
     }
 }

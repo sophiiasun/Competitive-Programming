@@ -1,4 +1,4 @@
-package WK190831_IC;
+package WK190831;
 
 import java.util.*;
 
