@@ -12,10 +12,13 @@ public class DiamondCollector {
         N = sc.nextInt();
         K = sc.nextInt();
         arr = new int[N];
+        System.out.println("How many cases? (1 or 2)");
+        int in = sc.nextInt();
         for(int i = 0; i < N; i++) arr[i] = sc.nextInt();
         Arrays.sort(arr);
-        System.out.println(Arrays.toString(arr));
-        twoCase();
+        if (in == 1) oneCase();
+        else if (in == 2) twoCase();
+        else System.out.println("Error. Try 1 number 1 or 2 and re-run.");
     }
 
     private static void oneCase() {
@@ -35,11 +38,10 @@ public class DiamondCollector {
         for (int i = 0; i < N; i++) {
             if (data[i] > max) max = data[i];
         }
-        System.out.println(max); // 1 1 3 4 6
+        System.out.println(max);
     }
 
     private static void twoCase() {
-        int max = 0;
         int[] scan1 = new int[N];
         int[] scan2 = new int[N];
         for (int i = 1; i < N - 1; i++) { // i is the beginning index of the second half
@@ -60,11 +62,11 @@ public class DiamondCollector {
                 }
             }
         }
+        int max = 0;
         for (int i = 0; i < N; i++) {
             for(int j = i + 1; j < N; j++) {
-                if (i + 1 > max) max = i + j;
+                if (scan1[i] + scan2[j] > max) max = scan1[i] + scan2[j];
             }
-        }
-        System.out.println(max);
+        }System.out.println(max);
     }
 }
