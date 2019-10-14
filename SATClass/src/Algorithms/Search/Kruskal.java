@@ -2,7 +2,7 @@ package Algorithms.Search;
 
 import java.util.*;
 
-public class Kruskal {
+public class Kruskal { //Minimum Spanning Tree (finds path of least possible weight)
     public static LinkedList<int[]> oEdge;
     public static int[] aParent;
     public static int Total=0;

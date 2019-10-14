@@ -1,4 +1,7 @@
 package WK191005;
 
-public class SpottyAndPlainCowsx {
+public class SpottyAndPlainCows {
+    public static void main(String[] args) {
+
+    }
 }

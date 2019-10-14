@@ -1,42 +1,48 @@
 package S2019;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class S2019Q2 {
 
-    static Scanner sc=new Scanner(System.in);
-    static int T=sc.nextInt();
-    static int[] arr = new int[T];
+    private static ArrayList<Integer> iSet = new ArrayList<>();
+    private static int cnt;
 
-    public static void main(String[] args){
-        for (int i = 0; i < T; i++)  {
-            arr[i] = sc.nextInt();
-        }
-        for(int i=0; i<T; i++){
-            for(int j=arr[i]-1; j>=2; j--){
-                if(checkPrime(j)) {
-                    int jUp=0;
-                    int dif=arr[i]-j;
-                    jUp=arr[i]+dif;
-                    if(checkPrime(jUp)){
-                        String out=j+" "+jUp;
-                        System.out.println(out);
-                        break;
-                    }
-                }
-            }
-        }
-
+    public static void main(String[] args) {
+        findPrimeSet();
+        
     }
 
-    static boolean checkPrime(int N){
-        boolean prime=true;
-        for(int i=2; i<=Math.sqrt(N); i++){
-            if(N%i==0){
-                prime=false;
+    private static void findPrimeSet() {
+        iSet.add(2);
+        iSet.add(3);
+        iSet.add(5);
+        iSet.add(7);
+        iSet.add(11);
+        cnt = 5;
+        for(int i = 13; i <= 1000; i+=2) {
+            int tmp = (int) Math.round(Math.sqrt(i));
+            boolean bln = true; //true if prime
+            for (int j = 0; j <= getSetNum(tmp); j++) {
+                if (i % iSet.get(j) == 0) {
+                    bln = false;
+                    break;
+                }
+            }
+            if (bln) {
+                cnt++;
+                iSet.add(i);
             }
         }
-        return prime;
+    }
+
+    private static int getSetNum(int a) {
+        if (iSet.contains(a)) return iSet.indexOf(a);
+        else {
+            for(int i = a - 1; i > 0; i--) {
+                if (iSet.contains(i)) return iSet.indexOf(i);
+            }
+        }
+        return 0;
     }
 
 }

@@ -25,16 +25,15 @@ public class BinarySearch {
     }
 
     private static int doBinarySearch (int[] arr, int iMax, int iMin) {
-        int iMid = (iMax + iMin) / 2;
-        if (arr[iMid] == T) {
-            return iMid;
-        } else if (arr[iMid] > T) {
-            return doBinarySearch (arr, iMid, iMin);
-        } else if (arr[iMid] < T) {
-            return doBinarySearch (arr, iMax, iMid);
+        while (iMax != iMin) {
+            int tmp = (iMax + iMin) / 2;
+            if (T == arr[tmp]) return tmp;
+            else if (T < arr[tmp])
+                iMax = tmp - 1;
+            else if (T > arr[tmp]) iMin = tmp + 1;
+            else return -1;
         }
         return -1;
     }
-
 
 }
