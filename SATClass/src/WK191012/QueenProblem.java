@@ -22,7 +22,6 @@ public class QueenProblem {
         if(iN == N){
             out();
             cnt++;
-            System.out.println("returned");
             return;
         }
         int nC = 0;
