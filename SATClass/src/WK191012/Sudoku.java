@@ -97,7 +97,7 @@ public class Sudoku {
                             arr[r][c] = 45 - sumC[c];
                             addOne(r, c, 45 - sumC[c]);
                         } else if (cntB[r/3][c/3] == 8) {
-                            arr[r][c] = 45 - sumB[r/3][c/3];e
+                            arr[r][c] = 45 - sumB[r/3][c/3];
                             addOne(r, c, 45 - sumB[r/3][c/3]);
                         }
                     }
