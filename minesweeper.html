@@ -144,8 +144,9 @@
         var val = game[h][w]
         if (val == -1) {
             revealBomb()
-            alert("You've Lost!") }
-        else if (val == 0) floodFill(h, w)
+            alert("You've Lost!") 
+            createGrid()
+        } else if (val == 0) floodFill(h, w)
         else if (val >= 1) revealValue(h, w)
     }
     function floodFill(h, w) {
@@ -172,6 +173,7 @@
     function chkVal(h, w) {
         if (game[h][w] == 0) 
             qZero.push([h, w])
+        if (game[h][w] == -2) return
         revealValue(h, w)
         game[h][w] = -2
     }
@@ -183,7 +185,6 @@
             document.getElementById(strG).innerHTML = game[h][w] 
         }
     }
-
 </script>
 </head>
 <body>
