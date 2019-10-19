@@ -51,8 +51,8 @@ public class QueenProblem {
     }
     static void out(){
         StringBuilder sb = new StringBuilder();
-        for(int r = 0; r < 8;r ++) {
-            for(int c= 0;c<8;c++){
+        for(int r = 0; r < N;r ++) {
+            for(int c= 0;c<N;c++){
                 if (c!=0)
                     sb.append(" ");
                 sb.append(arr[r][c]);
