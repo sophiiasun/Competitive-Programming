@@ -17,7 +17,6 @@ public class CowDance2 {
         int tC = 0;
         int cnt;
         do {
-            System.out.println(Arrays.toString(bA));
             cnt = tC;
             tC = 0;
             Arrays.fill(bA, false);
@@ -26,12 +25,13 @@ public class CowDance2 {
                     bA[move[i] - 1] = true; //new position now has cows
                 }
             }
-            pos = Arrays.copyOf(bA, bA.length);
+            boolean tmp[] = pos;
+            pos = bA;
+            bA = tmp;
             for (int i = 0; i < N; i++) {
                 if (pos[i])
                     tC++;
             }
-            System.out.println("run");
         } while (tC != cnt);
         System.out.println(tC);
     }
