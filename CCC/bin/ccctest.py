@@ -1,4 +1,4 @@
-#python bin/ccctest.py S2018.Q2 C:\github\CCC\testdata\y18\J4S2
+#python bin/ccctest.py S2018.Q2 C:\github\CCC\testdata\y18\S3 > result.txt
 
 import filecmp
 import glob
@@ -12,7 +12,7 @@ if len(sys.argv) != 3:
 
 clazz = sys.argv[1]
 path = sys.argv[2]
-timeout = 10        # seconds
+timeout = 30        # seconds
 
 if not os.path.exists("tmp"):
     os.mkdir("tmp")
@@ -43,7 +43,7 @@ def run(file, cnt):
         print("[PASS] %d ms" % (timeused))
         return True
     else:
-        print("[FAIL] %d ms. Expected: %s <=> Real: %s" % (timeused, lexpected, lreal))
+        print("[FAIL] %d ms. \nExpected: %s\nReal    : %s" % (timeused, lexpected, lreal))
         return False
 
 if os.path.isdir(path):
@@ -56,5 +56,10 @@ if os.path.isdir(path):
 
     print("=================================================================================================")
     print("Total %d test cases. Failed %d. Passed %d." % (cnt, len(fail), cnt - len(fail)))
+    print("Failed following files:")
+    cnt = 0
+    for file in fail:
+        cnt += 1
+        print("[%d] %s" % (cnt, file))
 else:
     run(path, 1)

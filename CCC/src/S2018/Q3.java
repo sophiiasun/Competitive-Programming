@@ -7,7 +7,7 @@ public class Q3 {
     static char[][] arr;
     static int[][] data;
     static int[] start;
-    static boolean[] loop = new boolean[4]; //U-D-L-R
+    static boolean[] loop; //U-D-L-R
     public static void main(String[] args) {
         init();
         run();
@@ -19,21 +19,25 @@ public class Q3 {
             aQ.add(new int[]{start[0], start[1]});
         while(!aQ.isEmpty()) {
             int[] tmp = aQ.poll();
+            loop = new boolean[4];
             int[] get = chkSurrounding(tmp[0]-1, tmp[1]);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
                 aQ.add(new int[]{get[0], get[1]});
             }
+            loop = new boolean[4];
             get = chkSurrounding(tmp[0]+1, tmp[1]);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
                 aQ.add(new int[]{get[0], get[1]});
             }
+            loop = new boolean[4];
             get = chkSurrounding(tmp[0], tmp[1]-1);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
                 aQ.add(new int[]{get[0], get[1]});
             }
+            loop = new boolean[4];
             get = chkSurrounding(tmp[0], tmp[1]+1);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
@@ -78,6 +82,8 @@ public class Q3 {
     static void out() {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
+                if (i == start[0] && j == start[1])
+                    continue;
                 if (data[i][j] != 0)
                     System.out.println(data[i][j]);
             }
