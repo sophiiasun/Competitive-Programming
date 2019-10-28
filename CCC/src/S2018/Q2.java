@@ -35,7 +35,6 @@ public class Q2 {
                     sb.append(' ');
                 sb.append(arr[i][j]);
             }
-
         }
         System.out.println(sb);
     }
