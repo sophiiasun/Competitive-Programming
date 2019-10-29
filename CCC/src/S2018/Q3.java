@@ -7,7 +7,6 @@ public class Q3 {
     static char[][] arr;
     static int[][] data;
     static int[] start;
-    static boolean[] loop; //U-D-L-R
     public static void main(String[] args) {
         init();
         run();
@@ -19,25 +18,21 @@ public class Q3 {
             aQ.add(new int[]{start[0], start[1]});
         while(!aQ.isEmpty()) {
             int[] tmp = aQ.poll();
-            loop = new boolean[4];
             int[] get = chkSurrounding(tmp[0]-1, tmp[1]);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
                 aQ.add(new int[]{get[0], get[1]});
             }
-            loop = new boolean[4];
             get = chkSurrounding(tmp[0]+1, tmp[1]);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
                 aQ.add(new int[]{get[0], get[1]});
             }
-            loop = new boolean[4];
             get = chkSurrounding(tmp[0], tmp[1]-1);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
                 aQ.add(new int[]{get[0], get[1]});
             }
-            loop = new boolean[4];
             get = chkSurrounding(tmp[0], tmp[1]+1);
             if (get != null) {
                 data[get[0]][get[1]] = data[tmp[0]][tmp[1]] + 1;
@@ -56,26 +51,27 @@ public class Q3 {
             return null;
         if (arr[r][c] == '.' && data[r][c] == 0)
             return new int[]{r, c};
+
         if (arr[r][c] == 'U') {
-            if (loop[0])
-                return null;
-            loop[0] = true;
-            return chkSurrounding(r-1, c);
+            if (data[r][c] == 0) {
+                data[r][c] = -2;
+                return chkSurrounding(r - 1, c);
+            } else return null;
         } else if (arr[r][c] == 'D') {
-            if (loop[1])
-                return null;
-            loop[1] = true;
-            return chkSurrounding(r+1, c);
+            if (data[r][c] == 0) {
+                data[r][c] = -2;
+                return chkSurrounding(r + 1, c);
+            } else return null;
         } else if (arr[r][c] == 'L') {
-            if (loop[2])
-                return null;
-            loop[2] = true;
-            return chkSurrounding(r, c-1);
+            if (data[r][c] == 0) {
+                data[r][c] = -2;
+                return chkSurrounding(r, c - 1);
+            } else return null;
         } else if (arr[r][c] == 'R') {
-            if (loop[3])
-                return null;
-            loop[3] = true;
-            return chkSurrounding(r, c+1);
+            if (data[r][c] == 0) {
+                data[r][c] = -2;
+                return chkSurrounding(r, c + 1);
+            } else return null;
         }
         return null;
     }
@@ -84,7 +80,7 @@ public class Q3 {
             for (int j = 0; j < M; j++) {
                 if (i == start[0] && j == start[1])
                     continue;
-                if (data[i][j] != 0)
+                if (data[i][j] != 0 && data[i][j] != -2)
                     System.out.println(data[i][j]);
             }
         }
