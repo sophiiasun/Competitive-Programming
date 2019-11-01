@@ -28,7 +28,7 @@ public class Kruskal { //Minimum Spanning Tree (finds path of least possible wei
         oEdge.add(new int[] {8, 6, 6});
         oEdge.add(new int[] {3, 5, 14});
         oEdge.add(new int[] {5, 8, 4});
-        Collections.sort(oEdge, (int[] a, int[]b) -> a[2] - b[2]);
+        Collections.sort(oEdge, (int[] a, int[] b) -> a[2] - b[2]);
 
         doDsu();
 
