@@ -1,6 +1,8 @@
 package S2018;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Q5 {
     static int N, M, P, Q;
@@ -32,6 +34,8 @@ public class Q5 {
         }
     }
     static void mergeSets(int a, int b) { // sends in two city numbers
+        //change parent node of b-set to parent node of a-set
+        //leave rest as is
         int bP = aPar[b];
         for (int i = 0; i < N * M; i++) {
             if (aPar[i] == bP)
@@ -52,27 +56,25 @@ public class Q5 {
             aPar[i] = i;
         // Planet number * P - P = first city of planet
         // Planet number * P - 1 = last city of planet
+        // Planet number * P - (P - city number) = last city of planet
         for (int i = 1; i <= P; i++) { //i == run cycle, total of P flights per planet
             int tmp1 = sc.nextInt(); //city numbers
             int tmp2 = sc.nextInt();
             int tmp3 = sc.nextInt();
-            for (int j = 1; j <= N; j++) { //j = planet number
-                aLink.add(new int[]{});
-                total += tmp3;
+            for (int j = 1; j <= N; j++) { // j = planet number
+                aLink.add(new int[]{(j * M - (M - tmp1)) - 1, (j * M - (M - tmp2)) - 1, tmp3});
+                total+=tmp3;
             }
         }
-        for (int i = P; i <= P + Q; i++) {
+        for (int i = P + 1; i <= P + Q; i++) { //i == run cycle, total of Q portals in universe between planets
             int tmp1 = sc.nextInt(); // planet number
             int tmp2 = sc.nextInt();
             int tmp3 = sc.nextInt();
             for (int j = 1; j <= M; j++) {// j = city number
-                aLink.add(new int[]{});
-                total += tmp3;
+                aLink.add(new int[]{(tmp1 * M - (M - j)) - 1, (tmp2 * M - (M - j)) - 1, tmp3});
+                total+=tmp3;
             }
         }
         Collections.sort(aLink, (int[] a, int[] b) -> a[2] - b[2]);
-        for (int i = 0; i < aLink.size(); i++) {
-            System.out.println(Arrays.toString(aLink.get(i)));
-        }
     }
 }

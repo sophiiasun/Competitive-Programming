@@ -12,7 +12,7 @@ if len(sys.argv) != 3:
 
 clazz = sys.argv[1]
 path = sys.argv[2]
-timeout = 30        # seconds
+timeout = 10        # seconds
 
 if not os.path.exists("tmp"):
     os.mkdir("tmp")
