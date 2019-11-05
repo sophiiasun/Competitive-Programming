@@ -10,8 +10,8 @@ public class Q5 {
     static LinkedList<int[]> aLink = new LinkedList<>(); // Stores three values: [start location, end location, cost]
     // to find number to subtract: P - city number - 1
     static int cnt = 0; // stores the number of edges created
-    static int total = 0; // the total cost of all passages
-    static int cost = 0; //the cost of passages created
+    static long total = 0; // the total cost of all passages
+    static long cost = 0; //the cost of passages created
 
     //P is flights between cities
     //Q is portals between planets
@@ -22,28 +22,24 @@ public class Q5 {
     }
     static void run() {
         for (int i = 0; i < aLink.size(); i++) {
-            if (aPar[aLink.get(i)[0]] == aPar[aLink.get(i)[1]])
+            if (aPar[aPar[aLink.get(i)[0]]] == aPar[aPar[aLink.get(i)[1]]])
                 continue;
             else {
                 cost += aLink.get(i)[2];
                 mergeSets(aLink.get(i)[0], aLink.get(i)[1]);
                 cnt++;
+                if (cnt == N * M - 1)
+                    break;
             }
-            if (cnt == N * M - 1)
-                break;
         }
     }
-    static void mergeSets(int a, int b) { // sends in two city numbers
+    static void mergeSets(int a, int b) { // sends in indexes
         //change parent node of b-set to parent node of a-set
         //leave rest as is
-        int bP = aPar[b];
-        for (int i = 0; i < N * M; i++) {
-            if (aPar[i] == bP)
-                aPar[i] = aPar[a];
-        }
+        aPar[aPar[b]] = aPar[aPar[a]];
     }
     static void out() {
-        System.out.println(total -cost);
+        System.out.println(total-cost);
     }
     static void init() {
         Scanner sc = new Scanner(System.in);
