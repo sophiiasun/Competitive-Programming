@@ -1,76 +1,116 @@
 package S2018;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Q5 {
     static int N, M, P, Q;
-    static int[] aPar; // Parent array
-    static LinkedList<int[]> aLink = new LinkedList<>(); // Stores three values: [start location, end location, cost]
-    // to find number to subtract: P - city number - 1
-    static int cnt = 0; // stores the number of edges created
-    static long total = 0; // the total cost of all passages
-    static long cost = 0; //the cost of passages created
-
-    //P is flights between cities
-    //Q is portals between planets
+    static int[] arrP; //Planets
+    static int[] arrC; //Cities
+    static long totalCost;
+    static long buildCost;
+    static int cityCNT, cityID;
+    static int planetCNT, planetID;
+    static HashMap<Integer, Set<Integer>> connP = new HashMap<>();
+    static HashMap<Integer, Set<Integer>> connC = new HashMap<>();
+    static ArrayList<Connection> aLink = new ArrayList<>();
     public static void main(String[] args) {
         init();
         run();
         out();
     }
+
+    static void out() {
+        System.out.println(totalCost - buildCost);
+    }
+
     static void run() {
-        for (int i = 0; i < aLink.size(); i++) {
-            if (aPar[aPar[aLink.get(i)[0]]] == aPar[aPar[aLink.get(i)[1]]])
-                continue;
-            else {
-                cost += aLink.get(i)[2];
-                mergeSets(aLink.get(i)[0], aLink.get(i)[1]);
-                cnt++;
-                if (cnt == N * M - 1)
-                    break;
+        int cnt = 0;
+        for (Connection conn : aLink) {
+            if (conn.isPortal) {
+                if (!isConnected(arrP[conn.s], arrP[conn.e])) {
+                    cnt = M - cityCNT;
+                    buildCost += (long) conn.c * cnt;
+                    connect(true, connP, arrP, conn.s, conn.e);
+                    planetCNT++;
+                }
+            } else {
+                if (!isConnected(arrC[conn.s], arrC[conn.e])) {
+                    cnt = N - planetCNT;
+                    buildCost += (long) conn.c * cnt;
+                    connect(false, connC, arrC, conn.s, conn.e);
+                    cityCNT++;
+                }
             }
+            if (planetCNT == N - 1 && cityCNT == M - 1)
+                return;
         }
     }
-    static void mergeSets(int a, int b) { // sends in indexes
-        //change parent node of b-set to parent node of a-set
-        //leave rest as is
-        aPar[aPar[b]] = aPar[aPar[a]];
+
+    static void connect(boolean isPlanet, HashMap<Integer, Set<Integer>> map, int[] groups, int c1, int c2) {
+        if (groups[c1] == 0 && groups[c2] == 0) {
+            Set<Integer> set = new HashSet<>();
+            set.add(c1);
+            set.add(c2);
+            int groupID = isPlanet ? ++planetID : ++cityID;
+            map.put(groupID, set);
+            groups[c1] = groups[c2] = groupID;
+        } else if (groups[c1] == 0 && groups[c2] != 0) {
+            map.get(groups[c2]).add(c1);
+            groups[c1] = groups[c2];
+        } else if (groups[c1] != 0 && groups[c2] == 0) {
+            map.get(groups[c1]).add(c2);
+            groups[c2] = groups[c1];
+        } else if (groups[c1] != 0 && groups[c2] != 0) {
+            int tar = Math.min(groups[c1], groups[c2]);
+            int src = Math.max(groups[c1], groups[c2]);
+            map.get(tar).addAll(map.get(src));
+            for (int i : map.get(src)) {
+                groups[i] = tar;
+            }
+            map.remove(src);
+        }
     }
-    static void out() {
-        System.out.println(total-cost);
+
+    static boolean isConnected(int a, int b) {
+        return (a == b && a != 0);
     }
+
     static void init() {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
         M = sc.nextInt();
         P = sc.nextInt();
         Q = sc.nextInt();
-        aPar = new int[N * M];
-        for (int i = 0; i < N*M; i++)
-            aPar[i] = i;
-        // Planet number * P - P = first city of planet
-        // Planet number * P - 1 = last city of planet
-        // Planet number * P - (P - city number) = last city of planet
-        for (int i = 1; i <= P; i++) { //i == run cycle, total of P flights per planet
-            int tmp1 = sc.nextInt(); //city numbers
-            int tmp2 = sc.nextInt();
-            int tmp3 = sc.nextInt();
-            for (int j = 1; j <= N; j++) { // j = planet number
-                aLink.add(new int[]{(j * M - (M - tmp1)) - 1, (j * M - (M - tmp2)) - 1, tmp3});
-                total+=tmp3;
-            }
+        arrP = new int[N];
+        arrC = new int[M];
+        int a, b, c, x, y, z;
+        for (int i = 0; i < P; i++) {
+            a = sc.nextInt();
+            b = sc.nextInt();
+            c = sc.nextInt();
+            totalCost += (long) c * N;
+            if (a != b)
+                aLink.add(new Connection(a - 1, b - 1, c, false));
         }
-        for (int i = P + 1; i <= P + Q; i++) { //i == run cycle, total of Q portals in universe between planets
-            int tmp1 = sc.nextInt(); // planet number
-            int tmp2 = sc.nextInt();
-            int tmp3 = sc.nextInt();
-            for (int j = 1; j <= M; j++) {// j = city number
-                aLink.add(new int[]{(tmp1 * M - (M - j)) - 1, (tmp2 * M - (M - j)) - 1, tmp3});
-                total+=tmp3;
-            }
+        for (int i = 0; i < Q; i++) {
+            x = sc.nextInt();
+            y = sc.nextInt();
+            z = sc.nextInt();
+            totalCost += (long) z * M;
+            if (x != y)
+                aLink.add(new Connection(x - 1, y - 1, z, true));
         }
-        Collections.sort(aLink, (int[] a, int[] b) -> a[2] - b[2]);
+        Collections.sort(aLink, (c1, c2) -> (c1.c - c2.c));
+    }
+
+    static class Connection {
+        boolean isPortal = false;
+        int s, e, c;
+        Connection(int s, int e, int c, boolean isPortal) {
+            this.s = s;
+            this.e = e;
+            this.c = c;
+            this.isPortal = isPortal;
+        }
     }
 }
