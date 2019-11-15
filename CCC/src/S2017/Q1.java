@@ -7,7 +7,6 @@ public class Q1 {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int[][] arr = new int[N][2]; //0 == team 1, 1 == team 2
-        int t1 = 0, t2 = 0;
         int max = 0;
         arr[0][0] = sc.nextInt();
         for (int i = 1; i < N; i++)
