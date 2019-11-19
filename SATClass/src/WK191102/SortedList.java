@@ -2,66 +2,80 @@ package WK191102;
 
 import java.util.*;
 
-public class SortedList {
-    public static void main(String[] args) {
-
+public class SortedList { //Complexity O(NlogN)
+    private LinkedList<MapElmt> oList = new LinkedList();
+    public void put(MapElmt aNew) {
+        int iInd = findIndex(aNew.iKey);
+        if(iInd < 0)
+            oList.get(-1 * (iInd + 1)).iValue = aNew.iValue;
+        else
+            oList.add(iInd, aNew);
     }
-    static class sortedList {
-        static LinkedList<Map<Integer, Integer>> list = new LinkedList<>();
-        sortedList(int findIndex, int getIndex, int[] BinarySearch) {
-
-        }
-//      ================================================================================================================
-//        static int findIndex(int iK) {
-//            if (list.size() == 0) {}
-//            else if (iK < list.get(0).get(0))
-//                return 0;
-//            else if (iK > list.get(list.size()).get(0))
-//                return list.size() + 1;
-//            else {
-//
-//            }
-//        }
-        static void put(Map<Integer, Integer> map) { //=================================================================
-            //if found, update iV value
-            //if not, add element
-        }
-        static void remove(int iK) { //=================================================================================
-            int[] iR = BinarySearch(0, list.size(), iK);
-            if (iR[0] == -1)
-                return;
+    public MapElmt getLast() {
+        return oList.get(oList.size() - 1);
+    }
+    public void remove(int iKey) {
+        int iInd = findIndex(iKey);
+        if(iInd < 0)
+            oList.remove(-1 * (iInd + 1));
+    }
+    public int getIndex(int iKey) {
+        int iInd = findIndex(iKey);
+        if(iInd < 0)
+            return -1 * (iInd + 1);
+        else
+            return -1;
+    }
+    public int getValue(int iKey) {
+        int iInd = findIndex(iKey);
+        if(iInd < 0)
+            return oList.get(-1 * (iInd + 1)).iValue;
+        else
+            return -1;
+    }
+    public int findIndex(int iKey) {
+        int iV = iKey;
+        if(oList.size() == 0)
+            return 0;
+        int iMin = 0, iMax = oList.size() - 1, iMid;
+        int iVMin = oList.get(iMin).iKey, iVMax = oList.get(iMax).iKey;
+        if(iV < iVMin)
+            return 0;
+        if(iV > iVMax)
+            return iMax + 1;
+        while(iMin <= iMax) {
+            iMid = (iMin + iMax) / 2;
+            int iVMid = oList.get(iMid).iKey;
+            if(iVMid == iV)
+                return -1 * (iMid + 1);
             else {
-                //remove element
+                if(iVMid < iV)
+                    iMin = iMid + 1;
+                else
+                    iMax = iMid - 1;
             }
         }
-        static int getValue(int iK) { //================================================================================
-            int[] iR = BinarySearch(0, list.size(), iK);
-            return iR[1];
+        return iMin;
+    }
+    public String toString(){
+        String sRet = "{";
+        for(int i = 0; i < oList.size(); i++) {
+            if(i < oList.size() - 1)
+                sRet += oList.get(i).toString() + ", ";
+            else
+                sRet += oList.get(i).toString();
         }
-        static int getIndex(int iK) { //returns value of index iK ======================================================
-            int[] iR = BinarySearch(0, list.size(), iK);
-            return iR[0];
-        }
-        static int[] BinarySearch(int s, int e, int iK) { //return index of iK and value of iV =========================
-            if (e >= 1) {
-                int mid = (s+e)/2;
-                if (list.get(mid).get(0) == iK)
-                    return new int[]{mid, list.get(mid).get(1)};
-                if (list.get(mid).get(0) > iK)
-                    return BinarySearch(s, mid - 1, iK);
-                if (list.get(mid).get(0) < iK)
-                    return BinarySearch(mid + 1, e, iK);
-            }
-            return new int[]{-1, -1};
-        }
-        static StringBuilder toString(int iK) { //======================================================================
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append("(" + list.get(i).get(0) + ", " + list.get(i).get(1) + ")");
-                if (i != 0)
-                    sb.append(", ");
-            }
-            return sb;
-        }
+        sRet += "}\n";
+        return sRet;
+    }
+}
+class MapElmt {
+    public int iKey, iValue;
+    public MapElmt(int iK, int iV) {
+        iKey = iK;
+        iValue = iV;
+    }
+    public String toString() {
+        return "(" + iKey + ", " + iValue + ")";
     }
 }

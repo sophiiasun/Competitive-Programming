@@ -7,25 +7,19 @@ public class CoolNumbers {
     static int counter = 0;
     public static void main(String[] args) {
         init();
-        run(1);
+        run();
         System.out.println(counter);
     }
-    static void run(int iS) {
-        if (Math.pow(iS, 6) >= E) {
-            return;
-        }
-        int cnt = 1; // number of exponent 6's
-        int numN = (int)Math.pow(iS, cnt * 6); //starting number
-        int numP = -1; //numN = numNew, numP = numPrevious
-        while (numN <= E) {
-            if (numP == numN)
+    static void run() {
+        int start = (int)Math.pow(S, 1/6);
+        while (start < E) {
+            int tmp = (int)Math.pow(start, 6);
+            if (tmp >= S && tmp <= E)
+                counter++;
+            else if (tmp > E)
                 break;
-            counter++;
-            cnt++;
-            numP = numN;
-            numN = (int)Math.pow(iS, cnt * 6);
+            start++;
         }
-        run(iS+1);
     }
     static void init() {
         Scanner sc = new Scanner(System.in);
