@@ -11,22 +11,26 @@ public class DegreesOfSeparation {
      * s: output the degree of separation n and m have
      * q: quit the program
      */
+    static Queue<ArrayList<Integer>> aQ = new LinkedList<>();
     static ArrayList<Integer>[] link;
+    static boolean[] aMet;
     public static void main(String[] args) {
         init();
     }
     static void s(int a, int b){
-        Queue<ArrayList<Integer>> aQ = new LinkedList<>();
-        boolean reached = false;
-        int counter = 0;
-        while (!reached) {
-            aQ.add(link[a]);
-            counter++;
-            ArrayList<Integer> tmp = new ArrayList<>(aQ.poll());
-
-        }
+//        doBFS();
     }
-
+    static int doBFS(int iS, int T){
+        ArrayList<Integer> tmp = new ArrayList<>(aQ.poll());
+        ArrayList<Integer> next = new ArrayList<>();
+        for (int i : tmp) {
+            aMet[i] = true;
+            if (i == T)
+                return iS;
+//            next.add();
+        }
+        return -1;
+    }
     static void q(){ //exit program
         System.exit(1);
     }
@@ -78,5 +82,6 @@ public class DegreesOfSeparation {
         i(16, 17);
         i(17, 18);
         i(16, 18);
+        aMet = new boolean[50];
     }
 }

@@ -12,7 +12,6 @@ public class Tabulation {
         int[] input = new int[N];
         aCnt = new int[N];
         Arrays.fill(aCnt, 1);
-
         for(int i = 0; i < N; i++)
             input[i] = sc.nextInt();
         double time = System.nanoTime();

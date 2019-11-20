@@ -5,23 +5,18 @@ import java.util.*;
 public class TheLightsGoingOnAndOff {
     static int N, L;
     static int[] arr; // true=on, false=off
-    static Set<Integer> setP = new HashSet<>(); //set Previous
     static Set<Integer> setN = new HashSet<>(); //set Next
-    static Set<Integer> tmpS = new HashSet<>(); //tmp Set
     public static void main(String[] args) {
         init();
         run();
-        System.out.println(setP.size());
+        System.out.println(setN.size());
     }
     static void run(){ //starting row
-        for (int i = 1; i < N; i++) {
-            setN.add(arr[i]);
-            for (int tmp : setP)
-                setN.add(arr[i] ^ tmp);
-            tmpS = setP;
-            setP = setN;
-            setN = tmpS;
-            setN.clear();
+        setN.add(arr[N-1]);
+        int tmp = arr[N-1];
+        for (int i = N-2; i >= 0; i--) {
+            tmp = arr[i] ^ tmp;
+            setN.add(tmp);
         }
     }
     static void init(){
@@ -36,6 +31,5 @@ public class TheLightsGoingOnAndOff {
             }
             arr[r] = tmp;
         }
-        setP.add(arr[0]);
     }
 }
