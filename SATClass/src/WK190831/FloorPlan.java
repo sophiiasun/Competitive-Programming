@@ -9,7 +9,6 @@ public class FloorPlan {
     static Queue<int[]> qChg = new LinkedList<>();
     static ArrayList<Integer> rmCount = new ArrayList<>();
     static char[][] grid;
-
     public static void main(String[] args) {
         grid = new char[r][c];
         for (int i = 0; i < r; i++) {
@@ -19,9 +18,8 @@ public class FloorPlan {
             }
         }
         int temp = countRooms();
-        System.out.println(temp + " rooms, " + tFloor + " square metre(s) left over");
+        System.out.print(temp + " rooms, " + tFloor + " square metre(s) left over");
     }
-
     static int fillRooms() {
         Collections.sort(rmCount, Collections.reverseOrder());
         int cnt = 0;
@@ -33,7 +31,6 @@ public class FloorPlan {
         }
         return cnt;
     }
-
     static int countRooms() {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
@@ -42,7 +39,6 @@ public class FloorPlan {
         }
         return fillRooms();
     }
-
     static void floodFill(int i, int j) {
         if (grid[i][j] != '.')
             return;
