@@ -13,14 +13,16 @@ public class J2016Q2 {
                 total+=arr[i][j];
             }
         }
-        if(total/4==arr[0][0]+arr[0][1]+arr[0][2]+arr[0][3]){
-            if(total/4==arr[0][0]+arr[1][0]+arr[2][0]+arr[3][0]){
-                System.out.println("magic");
-            } else {
-                System.out.println("not magic");
+        boolean bln = true;
+        for (int i = 0; i < 4; i++) {
+            int tmp = 0;
+            for (int j = 0; j < 4; j++) {
+                tmp += arr[i][j];
             }
-        } else {
-            System.out.println("not magic");
+            if (tmp != total/4)
+                bln = false;
         }
+        if(bln) System.out.println("magic");
+        else System.out.println("not magic");
     }
 }

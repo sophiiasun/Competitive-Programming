@@ -1,18 +1,22 @@
+import java.util.Arrays;
+
 import static java.lang.Double.MAX_VALUE;
 
-public class test {
+public class test { //difference array
     public static void main(String[] args) {
-        double dT1 = 2;
-        double dT2 = Math.sqrt(dT1);
-        dT2 = dT2 * dT2;
-        System.out.println(dT1);
-        System.out.println(String.format("%.30f", dT2));
-        double dTH = 0.000000001;
-        System.out.println(Math.abs(dT1 - dT2) < dTH);
-        double dT3 = MAX_VALUE;
-        double dT4 = dT3++;
-        System.out.println(dT3);
-        System.out.println(dT4);
-        System.out.println(dT3 == dT4);
+        int[] reg = {13, 2, 56, 7, 4, 3, 2, 56, 82, 13, 35, 53};
+        int[] dif = new int[12];
+        dif[0] = reg[0];
+        for (int i = 1; i < 12; i++) {
+            dif[i] = reg[i] - reg[i-1];
+        }
+        System.out.println(Arrays.toString(reg));
+        System.out.println(Arrays.toString(dif));
+        System.out.println("=============================");
+        dif[3] = dif[3] + 3;
+        dif[7] = dif[7] - 3;
+        for (int i = 1; i < 12; i++)
+            reg[i] = reg[i-1] + dif[i];
+        System.out.println(Arrays.toString(reg));
     }
 }

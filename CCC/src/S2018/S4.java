@@ -1,4 +1,4 @@
 package S2018;
 
-public class Q4 {
+public class S4 {
 }

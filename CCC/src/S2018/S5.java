@@ -2,7 +2,7 @@ package S2018;
 
 import java.util.*;
 
-public class Q5 {
+public class S5 {
     static int N, M, P, Q;
     static int[] arrP; //Planets
     static int[] arrC; //Cities
