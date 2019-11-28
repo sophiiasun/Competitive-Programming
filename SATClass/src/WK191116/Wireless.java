@@ -1,5 +1,7 @@
 package WK191116;
 
+import java.io.*;
+import java.nio.Buffer;
 import java.util.*;
 
 public class Wireless {
@@ -7,7 +9,7 @@ public class Wireless {
     static int[][] difA;
     static Point[] loc;
     public static void main(String[] args) {
-        init();
+        init2();
         run();
         int max = 0; int cnt = 0;
         for (int i = 0; i < N; i++) {
@@ -65,6 +67,26 @@ public class Wireless {
             loc[i] = new Point(tmpC, tmpR, sc.nextInt(), sc.nextInt());
         }
         difA = new int[N][M];
+    }
+    static void init2() {
+        try {
+            InputStreamReader in = new InputStreamReader(System.in);
+            BufferedReader br = new BufferedReader(in);
+            N = Integer.parseInt(br.readLine());
+            M = Integer.parseInt(br.readLine());
+            K = Integer.parseInt(br.readLine());
+            loc = new Point[K];
+            String[] arr;
+            for (int i = 0; i < K; i++) {
+                arr = br.readLine().split(" ");
+                int tmpR = Integer.parseInt(arr[0]) - 1;
+                int tmpC = Integer.parseInt(arr[1]) - 1;
+                loc[i] = new Point(tmpC, tmpR, Integer.parseInt(arr[2]), Integer.parseInt(arr[3]));
+            }
+            difA = new int[N][M];
+        } catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
     static class Point{
         int r; int c;
