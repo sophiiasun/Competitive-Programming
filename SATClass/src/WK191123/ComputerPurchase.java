@@ -4,32 +4,46 @@ import java.util.*;
 
 public class ComputerPurchase {
     static int N;
-    static String[][] arr;
+    static String[] name;
+    static int[][] arr;
+    static String str1, str2;
     public static void main(String[] args) {
-        init();
-        System.out.println(run());
+        run();
+        if (str1 != null)
+            System.out.println(str1);
+        if (str2 != null)
+            System.out.println(str2);
     }
-    static String run(){
+    static void run(){
         int max = 0;
-        String str = "";
-        for (int i = 0; i < N; i++) {
-            int tmp = (Integer.parseInt(arr[i][1]) << 1) + (Integer.parseInt(arr[i][2]) * 3) + Integer.parseInt(arr[i][3]);
-            if (tmp > max) {
-                max = tmp;
-                str = arr[i][0];
-            } else if (tmp == max) {
-                if(arr[i][0].charAt(0) < str.charAt(0))
-                    str = arr[i][0];
-            }
-        }
-        return str;
-    }
-    static void init(){
+        String last;
+        int N, R, S, D; //ram, speed, drive
+        String B; // brand
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
-        arr = new String[N][4];
-        for(int i = 0; i < N; i++) {
-            arr[i] = sc.nextLine().split(" ");
+        if (N == 0)
+            System.exit(1);
+        for (int i = 0; i < N; i++) {
+            B = sc.next();
+            if (N == 1) {
+                System.out.println(B);
+                System.exit(1);
+            }
+            R = sc.nextInt();
+            S = sc.nextInt();
+            D = sc.nextInt();
+            int tmp = (R<<1) + (S<<1) + S + D;
+            if (tmp > max) {
+                last = str1;
+                str1 = B;
+                str2 = last;
+                max = tmp;
+            } else if (tmp == max) {
+                if(B.charAt(0) < str1.charAt(0)) {
+                    str2 = str1;
+                    str1 = name[i];
+                }
+            }
         }
     }
 }
