@@ -12,20 +12,14 @@ public class Firehose {
         for (int i = 0; i < H; i++)
             arr.add(sc.nextInt());
         Collections.sort(arr);
-        for (int i = 0; i < H; i++) {
-            if (i != H-1)
-                map.put(arr.get(i+1)-arr.get(i), arr.get(i));
-            else
-                if (map.containsValue(0))
-                    map.put(1000000 - arr.get(i), arr.get(i));
-                else
-                    map.put(1000000 - arr.get(i) + arr.get(0), arr.get(i));
-        }
+        for (int i = 0; i < H-1; i++)
+            map.put(arr.get(i+1)-arr.get(i), arr.get(i));
+        map.put(1000000 - arr.get(H-1) + arr.get(0), arr.get(H-1));
         K = sc.nextInt();
         if (K >= H)
             System.out.println(0);
         else {
-            ArrayList<Integer> list = new ArrayList<>(map.keySet());
+            ArrayList<Integer> list = new ArrayList<>(map.keySet()); //keySet contains the distances between houses
             Collections.sort(list, Collections.reverseOrder());
             int[] house = new int[K];
             for (int i = 0; i < K; i++)

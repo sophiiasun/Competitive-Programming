@@ -1,7 +1,6 @@
 package J2016;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class J2016Q4 {
 
