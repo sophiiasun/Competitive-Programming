@@ -9,7 +9,7 @@ public class S05Q2 {
         int ty = sc.nextInt();
         int X = 0, Y = 0;
         int ix = sc.nextInt(), iy = sc.nextInt();
-        while (ix !=0 && iy != 0){
+        while (ix !=0 || iy != 0){
             if (X + ix < 0) X = 0;
             else if (X + ix > tx) X = tx;
             else X += ix;

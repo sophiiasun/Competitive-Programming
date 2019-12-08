@@ -14,7 +14,10 @@ public class AnimalFarm {
         ArrayList<Integer> key = new ArrayList<>(cost.keySet());
         Collections.sort(key);
         while(!checkRooms()){
-            
+            //check if next edge connects an already room
+            //if not, get rid of one more edge
+            //        merge rooms together
+            //
         }
     }
     static boolean checkRooms(){
