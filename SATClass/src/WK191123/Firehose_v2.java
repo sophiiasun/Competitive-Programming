@@ -14,7 +14,10 @@ public class Firehose_v2 {
         while (min < max) {
             int mid = (min+max)>>1;
             int num = findNumHydrant(mid);
-            if (num >= K)
+            if (num == K) {
+                System.out.println(mid);
+                return;
+            } else if (num >= K)
                 max = mid;
             else
                 min = mid + 1;
@@ -47,10 +50,3 @@ public class Firehose_v2 {
         K = sc.nextInt();
     }
 }
-
-/*
-if (num == K) {
-                System.out.println(mid);
-                return;
-            } else
- */
