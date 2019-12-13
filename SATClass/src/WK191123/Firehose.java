@@ -3,46 +3,52 @@ package WK191123;
 import java.util.*;
 
 public class Firehose {
+    static int H, K;
+    static int[] arr;
+
     public static void main(String[] args) {
-        int H, K, dis = 0;
-        HashMap<Integer, Integer> map = new HashMap<>(); //value is difference to the previous house
+        init();
+        run();
+    }
+
+    static void run(){
+        int min = 0, max = 500000;
+        while (min < max) {
+            int mid = (min+max)>>1;
+            int num = findNumHydrant(mid);
+            if (K >= num)
+                max = mid;
+            else
+                min = mid + 1;
+        }
+        System.out.println(min);
+    }
+
+    static int findNumHydrant(int len){
+        int min = Integer.MAX_VALUE;
+        for (int start = 0; start < H; start++){ //start = starting index
+            int tmp = 1, curr = start; //curr = current location
+            for (int i = curr; i < H + start; i++) {
+                if (arr[i] - arr[curr] > len * 2){
+                    curr = i;
+                    tmp++;
+                }
+            }
+            if (min > tmp)
+                min = tmp;
+        }
+        return min;
+    }
+
+    static void init(){
         Scanner sc = new Scanner(System.in);
         H = sc.nextInt();
-        ArrayList<Integer> arr = new ArrayList<>();
+        arr = new int[H * 2];
         for (int i = 0; i < H; i++)
-            arr.add(sc.nextInt());
-        Collections.sort(arr);
-        for (int i = 0; i < H-1; i++)
-            map.put(arr.get(i+1)-arr.get(i), arr.get(i));
-        map.put(1000000 - arr.get(H-1) + arr.get(0), arr.get(H-1));
+            arr[i] = sc.nextInt();
+        Arrays.sort(arr, 0, H);
+        for (int i = 0; i < H; i++)
+            arr[i + H] = arr[i] + 1000000;
         K = sc.nextInt();
-        if (K >= H)
-            System.out.println(0);
-        else {
-            ArrayList<Integer> list = new ArrayList<>(map.keySet()); //keySet contains the distances between houses
-            Collections.sort(list, Collections.reverseOrder());
-            int[] house = new int[K];
-            for (int i = 0; i < K; i++)
-                house[i] = map.get(list.get(i));
-            Arrays.sort(house);
-            for (int i = 0; i < K; i++) {
-                int tmp;
-                int index = arr.indexOf(house[i]);
-                if (i != K-1) {
-                    tmp = house[i+1] - arr.get(index + 1);
-                    if (tmp % 2 == 0) tmp /= 2;
-                    else tmp = tmp/2 + 1;
-                } else {
-                    if (index + 1 >= H)
-                        tmp = house[0] - arr.get(0);
-                    else
-                        tmp = 1000000 - arr.get(index + 1) + house[0];
-                    if (tmp % 2 == 0) tmp /= 2;
-                    else tmp = tmp/2 + 1;
-                }
-                dis += tmp;
-            }
-            System.out.println(dis);
-        }
     }
 }
