@@ -14,6 +14,7 @@ public class BloodDistribution {
             counter -= patients[i];
         System.out.println(counter);
     }
+
     static void run(){
         getBlood(0);
         getBlood(1);
@@ -24,6 +25,7 @@ public class BloodDistribution {
         getBlood(5);
         getBlood(7);
     }
+
     static void getBlood(int index){ //index represents blood type
         for (int i : range[index]) {
             int min = Math.min(patients[index], blood[i]);
@@ -31,6 +33,7 @@ public class BloodDistribution {
             blood[i] -= min;
         }
     }
+
     static void init(){
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < 8; i++)
