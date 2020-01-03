@@ -1,22 +1,20 @@
-import java.util.Arrays;
-
-import static java.lang.Double.MAX_VALUE;
+import java.util.*;
 
 public class test { //difference array
     public static void main(String[] args) {
-        int[] reg = {13, 2, 56, 7, 4, 3, 2, 56, 82, 13, 35, 53};
-        int[] dif = new int[12];
-        dif[0] = reg[0];
-        for (int i = 1; i < 12; i++) {
-            dif[i] = reg[i] - reg[i-1];
-        }
-        System.out.println(Arrays.toString(reg));
-        System.out.println(Arrays.toString(dif));
-        System.out.println("=============================");
-        dif[3] = dif[3] + 3;
-        dif[7] = dif[7] - 3;
-        for (int i = 1; i < 12; i++)
-            reg[i] = reg[i-1] + dif[i];
-        System.out.println(Arrays.toString(reg));
+        ArrayList<Integer> set1 = new ArrayList<>();
+        ArrayList<Integer> set2 = new ArrayList<>();
+        set1.add(3);
+        set1.add(6);
+        set1.add(39);
+        set1.add(38);
+        set1.add(2);
+        set1.add(1);
+        set1.add(7);
+        set1.add(4);
+        set2 = (ArrayList<Integer>)set1.clone();
+
+        for (int i : set2)
+            System.out.println(i);
     }
 }
