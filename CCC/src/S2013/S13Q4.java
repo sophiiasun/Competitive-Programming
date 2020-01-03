@@ -1,5 +1,6 @@
 package S2013;
 
+import java.io.*;
 import java.util.*;
 
 public class S13Q4 {
@@ -8,54 +9,53 @@ public class S13Q4 {
     static HashMap<Integer, Set<Integer>> map = new HashMap<>();
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt(), M = sc.nextInt();
-        for (int i = 0; i < M; i++) {
-            int key = sc.nextInt();
-            if (!map.containsKey(key))
-                map.put(key, new HashSet<>());
-            map.get(key).add(sc.nextInt());
-        }
-        p = sc.nextInt();
-        q = sc.nextInt();
-
-        if (map.containsKey(p)) {
-            Set<Integer> set = map.get(p);
-            if (set.contains(q)) {
-                System.out.println("yes");
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String[] in = br.readLine().split(" ");
+            int N = Integer.parseInt(in[0]);
+            int M = Integer.parseInt(in[1]);
+            for (int i = 0; i < M; i++) {
+                in = br.readLine().split(" ");
+                int key = Integer.parseInt(in[0]);
+                if (!map.containsKey(key))
+                    map.put(key, new HashSet<>());
+                map.get(key).add(Integer.parseInt(in[1]));
+            }
+            in = br.readLine().split(" ");
+            p = Integer.parseInt(in[0]);
+            q = Integer.parseInt(in[1]);
+            if (!map.containsKey(p) && !map.containsKey(q)) {
+                System.out.println("unknown");
                 System.exit(0);
             }
-            queue.add(map.get(p));
-            doBFS(q);
-        }
+            doBFS(p, q);
+            doBFS(q, p);
 
-        if (map.containsKey(q)) {
-            if (map.containsKey(q)) {
-                if (map.get(q).contains(p)) {
-                    System.out.println("no");
-                    System.exit(0);
-                }
-            }
-            queue.add(map.get(q));
-            doBFS(p);
+            System.out.println("unknown");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-
-        System.out.println("unknown");
     }
 
-    static void doBFS(int target) {
-        while (!queue.isEmpty()) {
-            Set<Integer> next = queue.poll();
-            for (int i : next) {
-                if (i == target && target == q) {
-                    System.out.println("yes");
-                    System.exit(0);
-                } else if (i == target && target == p) {
-                    System.out.println("no");
-                    System.exit(0);
-                } else if (map.containsKey(i))
-                    queue.add(map.get(i));
+    static void doBFS(int source, int target) {
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        Set<Integer> tmp;
+        set1.add(source);
+        while (!set1.isEmpty()) {
+            set2.clear();
+            for (int s : set1) {
+                if (map.containsKey(s)) {
+                    tmp = map.get(s);
+                    if (tmp.contains(target)) {
+                        System.out.println((target==q) ? "yes" : "no");
+                        System.exit(0);
+                    }
+                    set2.addAll(tmp);
+                }
             }
+            tmp = set1; set1 = set2; set2 = tmp;
         }
     }
 }
