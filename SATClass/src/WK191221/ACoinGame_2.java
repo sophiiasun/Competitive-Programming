@@ -2,9 +2,8 @@ package WK191221;
 
 import java.util.*;
 
-public class ACoinGame {
+public class ACoinGame_2 {
     static int n;
-    static Stacks stacks;
     static String result;
 
     static class Stacks{
@@ -14,10 +13,10 @@ public class ACoinGame {
             for (int i = 0; i < n; i++)
                 stacks[i] = new LinkedList<>();
         }
-        boolean move(int src, int tgt){
-            if (tgt >= 0 && tgt < n && stacks[src].size() > 0) {
-                if (stacks[tgt].size() == 0 || stacks[src].peek() < stacks[tgt].peek()) {
-                    stacks[tgt].push(stacks[src].pop());
+        boolean move(int s, int t){ //move source to target
+            if (t >= 0 && t < n && stacks[s].size() > 0) {
+                if (stacks[t].size() == 0 || stacks[s].peek() < stacks[t].peek()){
+                    stacks[t].push(stacks[s].pop());
                     return true;
                 }
                 return false;
@@ -27,7 +26,7 @@ public class ACoinGame {
         public String toString(){
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < n; i++) {
-                for (Character j : stacks[i])
+                for (char j : stacks[i])
                     sb.append(j).append(',');
                 if (stacks[i].size()>0)
                     sb.setLength(sb.length()-1);
@@ -37,11 +36,11 @@ public class ACoinGame {
             return sb.toString();
         }
         public void fromString(String in){
-            String[] arr = in.split(" ");
-            for (int i = 0; i < n; i++) // Is is possible that the length of arr is smaller than n
+            for (int i = 0; i < n; i++)
                 stacks[i].clear();
+            String[] arr = in.split(" ");
             for (int i = 0; i < arr.length; i++) {
-                if (arr[i].length() > 0) {
+                if (arr[i].length()>0) {
                     String[] tmp = arr[i].split(",");
                     for (int j = 0; j < tmp.length; j++) {
                         stacks[i].add(tmp[j].charAt(0));
@@ -51,55 +50,60 @@ public class ACoinGame {
         }
     }
 
+    static Stacks stacks;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
+        int n = sc.nextInt();
         while (n > 0) {
             stacks = new Stacks(n);
-            StringBuilder sb = new StringBuilder();
+
+            StringBuilder sb = new StringBuilder(); //create exp. result
             for (int i = 1; i <= n; i++)
-                sb.append(i).append(" ");
+                sb.append(i).append(' ');
             sb.setLength(sb.length()-1);
             result = sb.toString();
+
             sc.nextLine();
             run(sc.nextLine());
             n = sc.nextInt();
         }
     }
 
-    static void run(String in){
-        int[] leftright = new int[] {-1, 1};
-        HashSet<String> cach = new HashSet<>();
-        Queue<String> queue1 = new LinkedList<>();
-        Queue<String> queue2 = new LinkedList<>();
+    public static void run(String in) {
+        int[] leftright = {1, -1};
+        HashSet<String> set = new HashSet<>();
+        Queue<String> q1 = new LinkedList<>();
+        Queue<String> q2 = new LinkedList<>();
         Queue<String> tmp;
-        queue1.add(in);
-        cach.add(in);
+        q1.add(in);
+        set.add(in);
         int counter = 0;
-        while (!queue1.isEmpty()) {
+        while(!q1.isEmpty()) {
             counter++;
-            for (String s : queue1) {
+            for (String s : q1) {
                 stacks.fromString(s);
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < leftright.length; j++) {
-                        if (stacks.move(i, i + leftright[j])) {
+                for (int i = 0; i < n; i++){
+                    for (int j = 0; j < 2; j++) {
+                        if (stacks.move(i, i+leftright[j])) {
                             String str = stacks.toString();
                             if (str.equals(result)) {
                                 System.out.println(counter);
                                 return;
                             }
-                            if (!cach.contains(str)) {
-                                queue2.add(str);
-                                cach.add(str);
+                            if (!set.contains(str)) {
+                                q2.add(str);
+                                set.add(str);
                             }
                             stacks.move(i + leftright[j], i);
                         }
                     }
                 }
             }
-            tmp = queue1; queue1 = queue2; queue2 = tmp;
-            queue2.clear();
+            tmp = q1; q1 = q2; q2 = tmp;
+            q2.clear();
         }
         System.out.println("IMPOSSIBLE");
     }
+
 }
