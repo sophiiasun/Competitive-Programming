@@ -16,7 +16,7 @@ public class Simple {
             arrW[i] = sc.nextInt();
         }
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < W + 1; j++) {
+            for (int j = 0; j <= W; j++) {
                 if (i == 0) {
                     if (arrW[i] > j) {
                         arr[i][j] = 0;
