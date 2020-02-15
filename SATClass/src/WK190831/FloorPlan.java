@@ -9,6 +9,7 @@ public class FloorPlan {
     static Queue<int[]> qChg = new LinkedList<>();
     static ArrayList<Integer> rmCount = new ArrayList<>();
     static char[][] grid;
+
     public static void main(String[] args) {
         grid = new char[r][c];
         for (int i = 0; i < r; i++) {
