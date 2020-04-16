@@ -1,6 +1,5 @@
-package p3;
+package practise.p3;
 
-import java.io.BufferedReader;
 import java.util.*;
 
 public class Main {

@@ -14,14 +14,4 @@ public class J2019Q5_RuleOfThree {
 
     }
 
-//    static boolean doBFS(int counter, String[] arr){
-//        if (counter > S)
-//            return false;
-//        else {
-//
-//        }
-//    }
-//
-//    static void
-
 }

@@ -1,4 +1,4 @@
-package pracvtise;
+package practise;
 
 import java.util.*;
 

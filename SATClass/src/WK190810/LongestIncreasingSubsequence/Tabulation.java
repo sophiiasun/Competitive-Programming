@@ -14,21 +14,21 @@ public class Tabulation {
         Arrays.fill(aCnt, 1);
         for(int i = 0; i < N; i++)
             input[i] = sc.nextInt();
-        double time = System.nanoTime();
+//        double time = System.nanoTime();
         for(int i = 0; i < N; i++) {
-            if(i == 0) aCnt[i] = 1;
-            else {
+            if(i == 0)
+                aCnt[i] = 1;
+            else
                 aCnt[i] = getMax(input, i);
-            }
         }
-        System.out.println(Arrays.toString(aCnt));
+//        System.out.println(Arrays.toString(aCnt));
         int out = 1;
         for(int i = 0; i < N; i++) {
             if(aCnt[i] > out)
                 out = aCnt[i];
         }
         System.out.println(out);
-        System.out.println(System.nanoTime() - time);
+//        System.out.println(System.nanoTime() - time);
     }
 
     private static int getMax(int[] aList, int N) {

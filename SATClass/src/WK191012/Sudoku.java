@@ -47,6 +47,7 @@ public class Sudoku {
             }
         }
     }
+
     static boolean[] getOne(int r, int c) {
 //        boolean[] aR = new boolean[10]; //default false; set to true if number is found
 //        boolean[] aC = new boolean[10];
@@ -68,6 +69,7 @@ public class Sudoku {
         }
         return aRet;
     }
+
     static void init() {
         Scanner sc = new Scanner(System.in);
         for (int r = 0; r < 9; r++) {

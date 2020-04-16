@@ -40,9 +40,8 @@ public class Kruskal { //Minimum Spanning Tree (finds path of least possible wei
 
     public static void doDsu() {
         cntEdge = 0;
-        for(int i = 0; i < aParent.length; i++) {
+        for(int i = 0; i < aParent.length; i++)
             aParent[i] = i;
-        }
         for(int i = 0; i < oEdge.size(); i++) {
             if(aParent[oEdge.get(i)[0]] == aParent[oEdge.get(i)[1]]) continue;
             else {

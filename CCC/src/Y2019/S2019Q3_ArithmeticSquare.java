@@ -2,10 +2,11 @@ package Y2019;
 
 import java.util.Scanner;
 
-public class S2019Q3 {
-        static int[][] arr = new int[3][3];
-        static int M = Integer.MAX_VALUE;
-        static int cnt = 0;
+public class S2019Q3_ArithmeticSquare {
+    static int[][] arr = new int[3][3];
+    static int M = Integer.MAX_VALUE;
+    static int cnt = 0;
+
     public static void main(String[] args) {
         init();
         run();
@@ -14,7 +15,6 @@ public class S2019Q3 {
 
     static void run() {
         while (cnt < 9) {
-            System.out.println("run");
             int curCnt = cnt;
             for (int r = 0; r < 3; r++) { // check each row for any fillable values
                 if (arr[r][0] == M && arr[r][1] != M && arr[r][2] != M) {
@@ -28,7 +28,7 @@ public class S2019Q3 {
                     cnt++;
                 }
             }
-            for (int c = 0; c < 3; c++) {
+            for (int c = 0; c < 3; c++) { //check each column for any fillable values
                 if (arr[0][c] == M && arr[1][c] != M && arr[2][c] != M) {
                     arr[0][c] = (arr[1][c] << 1) - arr[2][c];
                     cnt++;
@@ -40,7 +40,7 @@ public class S2019Q3 {
                     cnt++;
                 }
             }
-            if (curCnt == cnt) {
+            if (curCnt == cnt) { //if nothing new was placed, add a random value
                 addOne();
             }
         }

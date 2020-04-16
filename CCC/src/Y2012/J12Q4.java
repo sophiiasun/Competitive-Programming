@@ -1,6 +1,8 @@
+package Y2012;
+
 import java.util.*;
 
-public class J12Q4 {
+public class    J12Q4 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int K = sc.nextInt();

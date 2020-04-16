@@ -1,4 +1,4 @@
-package q2;
+package practise.q2;
 
 import java.util.*;
 
