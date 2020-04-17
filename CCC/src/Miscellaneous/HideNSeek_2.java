@@ -1,6 +1,8 @@
+package Miscellaneous;
+
 import java.util.*;
 
-public class HideNSeek_2 {
+public class HideNSeek_2 { //WORKING VERSION
 
     static int N, M, T;
     static int[][] arr;
