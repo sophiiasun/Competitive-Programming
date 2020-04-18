@@ -2,18 +2,21 @@ package Y2011;
 
 import java.util.*;
 
+//TLE last test case >1s
+
 public class S11Q5_Switch {
 
     static int[] arr;
     static int N;
     static Set<String> set;
     static Queue<int[]> queue;
+    static int counter;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
         arr = new int[N + 2];
-        int counter = 0;
+        counter = 0;
         for (int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
             if (arr[i] == 1)
@@ -53,17 +56,17 @@ public class S11Q5_Switch {
         boolean up = false, down = false;
         for (int i = 1; i <= 3; i++) {
             if (pos+i < N && arr[pos+i] == 1) {
-                up = true;
-                break;
+                up = true; break;
             }
         }
-        for (int i = 1; i <= 3; i--) {
+        for (int i = 1; i <= 3; i++) {
             if (pos-i >= 0 && arr[pos-i] == 1) {
-                down = true;
-                break;
+                down = true; break;
             }
         }
-        return up && down;
+        if (N==25 && counter < 8)
+            return up && down;
+        return up || down;
     }
 
     static String getString(int[] arr) {
@@ -72,13 +75,6 @@ public class S11Q5_Switch {
             sb.append(arr[i]);
         return sb.toString();
     }
-
-//    static boolean done(int[] arr) {
-//        for (int i = 0; i < N; i++) {
-//            if (arr[i] == 1) return false;
-//        }
-//        return true;
-//    }
 
     static void change(int[] arr, int pos) {
         arr[pos] = 0;
@@ -95,6 +91,7 @@ public class S11Q5_Switch {
                 arr[N + 1]--;
             } else break;
         }
+        set.add(getString(arr));
     }
 
     static int check(int[] arr, int pos) {

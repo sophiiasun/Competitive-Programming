@@ -39,7 +39,6 @@ public class S13Q4_WhoIsTaller {
 
     static void doBFS2(int source, int target, int N) {
         boolean[] aVisited = new boolean[N];
-        Arrays.fill(aVisited, false);
         Queue<Integer> queue = new LinkedList<>();
         queue.add(source);
         int next;
