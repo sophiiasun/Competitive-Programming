@@ -2,8 +2,6 @@ package Y2011;
 
 import java.util.*;
 
-//TLE last test case >1s
-
 public class S11Q5_Switch {
 
     static int[] arr;
