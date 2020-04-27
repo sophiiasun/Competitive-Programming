@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.Atcoder;
 
 import java.io.*;
 
