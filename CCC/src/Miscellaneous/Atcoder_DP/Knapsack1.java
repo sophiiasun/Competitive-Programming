@@ -1,9 +1,9 @@
-package Miscellaneous.Atcoder;
+package Miscellaneous.Atcoder_DP;
 
 import java.util.*;
 import java.io.*;
 
-public class Knapsack1_2 {
+public class Knapsack1 {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;

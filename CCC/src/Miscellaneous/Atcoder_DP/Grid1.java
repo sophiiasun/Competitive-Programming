@@ -1,7 +1,5 @@
-package Miscellaneous.Atcoder;
+package Miscellaneous.Atcoder_DP;
 
-import java.nio.Buffer;
-import java.util.*;
 import java.io.*;
 
 public class Grid1 {
