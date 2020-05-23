@@ -1,10 +1,9 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+package ICPC;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class template {
-
+public class ICPC05_ACM {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
@@ -17,11 +16,11 @@ public class template {
             st = new StringTokenizer(br.readLine().trim());
         return st.nextToken();
     }
-    static int readInt () throws IOException {
-        return Integer.parseInt(next());
-    }
     static long readLong () throws IOException {
         return Long.parseLong(next());
+    }
+    static int readInt () throws IOException {
+        return Integer.parseInt(next());
     }
     static double readDouble () throws IOException {
         return Double.parseDouble(next());

@@ -1,15 +1,26 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+package DMOPC;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class template {
-
+public class DMOPC19_Hydrocarbons {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-
+        int a = readInt(), b = readInt(), c = readInt(), d = readInt();
+        if (b==0 && a<c-1) {
+            System.out.println("invalid"); return;
+        }
+        if (b>0 && a<c) {
+            System.out.println("invalid"); return;
+        }
+        int CC = 2*a + 4*b + 6*c;
+        if (4*(a+b+c+1)-CC != d) {
+            System.out.println("invalid");
+        } else {
+            System.out.println("C" + (a+b+c+1) + "H" + d);
+        }
     }
 
     static String next() throws IOException {

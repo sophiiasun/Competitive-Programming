@@ -1,15 +1,18 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+package ICPC;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class template {
-
+public class ICPC05_TwoEnds {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-
+        String[] tmp = readLine().split(" ");
+        while (tmp.length != 1) {
+            int[] arr = new int[tmp.length];
+            for (int i = 0; i < tmp.length; i++) arr[i] = Integer.parseInt(tmp[i]); // Input
+        }
     }
 
     static String next() throws IOException {
