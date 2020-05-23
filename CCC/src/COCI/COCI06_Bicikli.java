@@ -27,7 +27,7 @@ public class COCI06_Bicikli {
             BitSet next = new BitSet(N+1); next.or(bs); next.set(start, true);
             dfs(i, next);
             if (!bs.get(i)) dfs(i, next);
-            else run = false;
+            else { run = false; return; }
         }
     }
 
