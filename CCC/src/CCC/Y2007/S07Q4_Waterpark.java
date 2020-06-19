@@ -1,43 +1,30 @@
 package CCC.Y2007;
 
 import java.util.*;
+import java.io.*;
+
+// WORKING VERSION
 
 public class S07Q4_Waterpark {
-    static int N;
-    static ArrayList<Integer>[] map;
-    static int counter;
-    static int[] arr;
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        map = new ArrayList[N];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 2<<20);
+        int N = Integer.parseInt(br.readLine());
+        ArrayList<Integer>[] arr = new ArrayList[N];
         for (int i = 0; i < N; i++)
-            map[i] = new ArrayList<>();
-        int a = sc.nextInt()-1, b = sc.nextInt()-1;
-        while (a != -1 && b != -1) {
-            map[a].add(b);
-            a = sc.nextInt()-1;
-            b = sc.nextInt()-1;
+            arr[i] = new ArrayList<>();
+        String[] in = br.readLine().split(" ");
+        while (!in[0].equals("0")) {
+            int a = Integer.parseInt(in[0]), b = Integer.parseInt(in[1]);
+            arr[a].add(b);
+            in = br.readLine().split(" ");
         }
-
-        arr = new int[N];
-        doDFS(0);
-        System.out.println(counter);
-    }
-
-    static void doDFS(int curr){
-        if (curr == N-1) {
-            counter++;
-            arr[curr]++;
-        } else {
-            for (int i : map[curr]) {
-                if (arr[i] > 0) {
-                    counter += arr[i];
-                    arr[curr] += arr[i];
-                } else
-                    doDFS(i);
+        int[] dis = new int[N+1];
+        dis[N] = 1;
+        for (int i = N-1; i >= 1; i--) {
+            for (int j : arr[i]) {
+                dis[i] += dis[j];
             }
         }
+        System.out.println(dis[1]);
     }
 }

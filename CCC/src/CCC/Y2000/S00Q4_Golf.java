@@ -1,16 +1,5 @@
 package CCC.Y2000;
 
-/*
-    for(int i = 1; i <= total; ++i){
-        dp[i]=0x3f;
-        for(int c = 0; c < clubs1; ++c){
-            if(i-clubs[c]>=0){
-                dp[i]=min(dp[i],dp[i-clubs[c]]+1);
-            }
-        }
-    }
- */
-
 import java.util.*;
 
 public class S00Q4_Golf {

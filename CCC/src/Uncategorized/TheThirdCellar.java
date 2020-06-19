@@ -39,7 +39,7 @@ public class TheThirdCellar {
         }
         for (int t = 0; t < N; t++) {
             int counter = 0;
-            for (int i = arr[t][0]; i <= arr[t][1]; i++) {
+            for (int i = arr[t][0]; i < arr[t][1]; i++) {
                 if (prime[i])
                     counter++;
             }

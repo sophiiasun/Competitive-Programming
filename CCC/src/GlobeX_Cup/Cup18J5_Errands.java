@@ -8,11 +8,14 @@ public class Cup18J5_Errands {
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        int N = readInt(), M = readInt(), Q = readInt(), C = readInt();
+        int N = readInt(), M = readInt(), Q = readInt(), C = readInt(), a, b;
         int[] bfs = new int[N+1]; Arrays.fill(bfs, -1); bfs[C] = 0; // Stores distance from C to all other nodes
         ArrayList<Integer>[] arr = new ArrayList[N+1];
         for (int i = 1; i <= N; i++) arr[i] = new ArrayList<>(); // Initialize
-        for (int i = 0; i < M; i++) arr[readInt()].add(readInt()); // Build graph
+        for (int i = 0; i < M; i++) { // Build graph
+            a = readInt(); b = readInt();
+            arr[a].add(b); arr[b].add(a);
+        }
 
         Queue<Integer> queue = new LinkedList<>(); queue.add(C);
         boolean[] vis = new boolean[N+1]; vis[C] = true;
@@ -26,7 +29,7 @@ public class Cup18J5_Errands {
         }
 
         for (int i = 0; i < Q; i++) { // Run queries
-            int a = readInt(), b = readInt();
+            a = readInt(); b = readInt();
             if (bfs[a] == -1 || bfs[b] == -1) System.out.println("This is a scam!");
             else System.out.println(bfs[a] + bfs[b]);
         }

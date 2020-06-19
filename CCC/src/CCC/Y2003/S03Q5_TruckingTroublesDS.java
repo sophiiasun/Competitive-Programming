@@ -37,7 +37,6 @@ public class S03Q5_TruckingTroublesDS {
 
         Arrays.sort(map, (int[] a, int[] b) -> b[2] - a[2]); // sort weight from greatest to least
         doKruskal();
-        System.out.println("Fail, could not connect to all destinations");
     }
 
     static void doKruskal(){

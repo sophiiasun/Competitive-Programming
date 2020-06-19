@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.*;
 import java.util.*;
 
@@ -20,6 +18,9 @@ public class template {
     static int readInt () throws IOException {
         return Integer.parseInt(next());
     }
+    static String readLine () throws IOException {
+        return br.readLine().trim();
+    }
     static long readLong () throws IOException {
         return Long.parseLong(next());
     }
@@ -28,8 +29,5 @@ public class template {
     }
     static char readCharacter () throws IOException {
         return next().charAt(0);
-    }
-    static String readLine () throws IOException {
-        return br.readLine().trim();
     }
 }

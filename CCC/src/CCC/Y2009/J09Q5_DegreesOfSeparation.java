@@ -4,7 +4,6 @@ import java.util.*;
 
 public class J09Q5_DegreesOfSeparation {
     static ArrayList<Integer>[] link;
-    static int Total;
     public static void main(String[] args) {
         init();
         Scanner sc = new Scanner(System.in);
