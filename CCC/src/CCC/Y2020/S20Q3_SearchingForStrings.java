@@ -1,74 +1,41 @@
 package CCC.Y2020;
 
 import java.util.*;
+import java.io.*;
 
 public class S20Q3_SearchingForStrings {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String perm = sc.next(), str = sc.next();
-        Set<String> set = new HashSet<>();
-        String compare = getPerm(perm);
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
+    static StringTokenizer st;
 
-        String letters = "";
-        for (int i = 0; i < perm.length(); i++) {
-            if (letters.indexOf(perm.charAt(i)) < 0)
-                letters += perm.charAt(i);
+    static String hay, ndl;
+    static Set<Long> set = new HashSet<>();
+    static int[] hash = new int[26], ori = new int[26];
+    static int N, H;
+
+    public static void main(String[] args) throws IOException {
+        ndl = readLine(); hay = readLine(); N = ndl.length(); H = hay.length();
+        if (N > H) { System.out.println(0); return; } // Needle longer than hay
+        for (int i = 0; i < N; i++) { // Obtain needle hash value
+            ori[ndl.charAt(i)-'a']++; hash[hay.charAt(i)-'a']++;
+        }
+        long arr[] = new long[H];
+        long n = 1, hv = 31;
+        for (int i = 0; i < N; i++) {
+            n *= hv;
+            if (i==0) arr[i] = hay.charAt(i) - 'a' + 1;
+            else arr[i] = arr[i-1]*hv + (hay.charAt(i) - 'a' + 1);
+        }
+        if (Arrays.equals(ori, hash)) set.add(arr[N-1]);
+        for (int i = N; i < H; i++) { // implement rolling hash
+            hash[hay.charAt(i)-'a']++; hash[hay.charAt(i-N)-'a']--;
+            arr[i] = arr[i-1]*hv + (hay.charAt(i)-'a'+1);
+            if (Arrays.equals(ori, hash)) set.add(arr[i] - arr[i-N]*n);
         }
 
-        str+= " ";
-        Set<String> strings = new HashSet<>();
-        for (int i = 0; i < str.length(); i++) {
-            if (letters.indexOf(str.charAt(i)) >= 0) {
-                for (int j = i + 1; j < str.length(); j++) {
-                    if (letters.indexOf(str.charAt(j)) < 0) {
-                        if (j-i >= perm.length())
-                            strings.add(str.substring(i, j));
-                        i = j;
-                        break;
-                    }
-                }
-            }
-        }
-
-        for (String s : strings) {
-            for (int i = 0; i < s.length() - perm.length() + 1; i++) {
-                String tperm = s.substring(i, i + perm.length());
-                if (!set.contains(tperm) && countLetters(tperm, compare))
-                    set.add(tperm);
-            }
-        }
-
-//        for (int i = 0; i < str.length() - perm.length() + 1; i++) {
-//            String tperm = str.substring(i, i + perm.length());
-//            if (!set.contains(tperm) && countLetters(tperm, compare))
-//                set.add(tperm);
-//        }
         System.out.println(set.size());
     }
 
-    static boolean countLetters(String str, String compare){ //97
-        int[] arr = new int[26];
-        for (int i = 0; i < str.length(); i++)
-            arr[str.charAt(i) - 97]++;
-        String out = "";
-        for (int i = 0; i < 26; i++) {
-            out += i;
-            out += arr[i];
-        }
-        if (out.equals(compare))
-            return true;
-        return false;
-    }
-
-    static String getPerm(String str){
-        int[] arr = new int[26];
-        for (int i = 0; i < str.length(); i++)
-            arr[str.charAt(i) - 97]++;
-        String out = "";
-        for (int i = 0; i < 26; i++) {
-            out += i;
-            out += arr[i];
-        }
-        return out;
+    static String readLine () throws IOException {
+        return br.readLine().trim();
     }
 }
