@@ -8,7 +8,16 @@ public class THICC17P5_Smarties {
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-
+        int N = readInt(), K = readInt(), a[] = new int[N]; long ans = 0;
+        BitSet bs = new BitSet(N);
+        for (int i = 0; i < N; i++) a[i] = readInt();
+        for (int i = K; i < N; i++) {
+            for (int j = 0; j <= i-K; j++) {
+                bs.set(a[j]);
+                if (bs.cardinality() >= K) ans++;
+            }
+            
+        }
     }
 
     static String next() throws IOException {

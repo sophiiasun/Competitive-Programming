@@ -7,35 +7,38 @@ public class COCI07C4P3_Lektira {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
-    static char[] in;
+    static char[] in, tmp, ans;
 
     public static void main(String[] args) throws IOException {
-        in = readLine().toCharArray(); int pos = -1, max = 0, cnt = 0, cut[] = new int[2];
+        in = readLine().toCharArray(); int len = in.length;
+        ans = Arrays.copyOf(in, len);
 
-        for (int t = 0; t < 2; t++) {
-            char low = 'z' + 1;
-            for (int i = pos + 1; i < in.length-t; i++) {
-                if (in[i] < low) { low = in[i]; pos = i; cnt = 1; }
-                else if (in[i] == low && pos == i-1) {
-                    cnt++;
-                    if (cnt > max) { max = cnt; pos = i; }
-                }
+        for (int i = 0; i < len-2; i++) {
+            for (int j = i+1; j < len-1; j++) {
+                tmp = Arrays.copyOf(in, len);
+                flip(0, i); flip(i+1, j); flip(j+1, len-1);
+                if (comp(tmp,ans)) ans = Arrays.copyOf(tmp, len);
             }
-            cut[t] = pos;
         }
-        flip(0, cut[0]);
-        flip(cut[0]+1, cut[1]);
-        flip(cut[1]+1, in.length-1);
-        for (int i = 0; i < in.length; i++) System.out.print(in[i]);
+
+        for (int i = 0; i < in.length; i++) System.out.print(ans[i]);
         System.out.println();
     }
 
     static void flip (int pf, int pb) {
         while (pf < pb) {
-            char t = in[pf]; in[pf] = in[pb]; in[pb] = t;
+            char t = tmp[pf]; tmp[pf] = tmp[pb]; tmp[pb] = t;
             pf++; pb--;
         }
     }
+    static boolean comp (char[] a, char[] b) {
+        for (int i = 0; i < Math.min(a.length, b.length); i++) {
+            if (a[i] < b[i]) return true;
+            else if (a[i] > b[i]) return false;
+        }
+        return a.length < b.length;
+    }
+
     static String readLine () throws IOException {
         return br.readLine().trim();
     }

@@ -11,7 +11,7 @@ public class BalticOI07P3_Sound {
         int n = readInt(), m = readInt(), c = readInt(), dq[] = new int[n+3];
         for (int i = 1, x; i <= n; i++) {
             x = readInt();
-            while ()
+//            while ()
         }
     }
 

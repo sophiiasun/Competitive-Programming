@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ZeroSum">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Ivypath/ZeroSum.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
