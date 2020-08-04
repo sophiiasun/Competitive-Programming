@@ -1,12 +1,14 @@
-import java.io.*;
+package GlobeX_Cup;
+
 import java.util.*;
+import java.io.*;
 
-public class template {
-
+public class Cup18S4_ReversedDijkstra {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
+        int N = readInt(), M = readInt(), A = readInt(), B = readInt(), V = readInt();
 
     }
 
@@ -21,13 +23,13 @@ public class template {
     static long readLong () throws IOException {
         return Long.parseLong(next());
     }
-    static String readLine () throws IOException {
-        return br.readLine().trim();
-    }
     static double readDouble () throws IOException {
         return Double.parseDouble(next());
     }
     static char readCharacter () throws IOException {
         return next().charAt(0);
+    }
+    static String readLine () throws IOException {
+        return br.readLine().trim();
     }
 }

@@ -1,13 +1,18 @@
-import java.io.*;
+package Fun_Math;
+
 import java.util.*;
+import java.io.*;
 
-public class template {
-
+public class TheOddNumber {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-
+        int N = readInt(), ans = 0;
+        for (int i = 0; i < N; i++) {
+            ans ^= readInt();
+        }
+        System.out.println(ans);
     }
 
     static String next() throws IOException {
@@ -17,17 +22,5 @@ public class template {
     }
     static int readInt () throws IOException {
         return Integer.parseInt(next());
-    }
-    static long readLong () throws IOException {
-        return Long.parseLong(next());
-    }
-    static String readLine () throws IOException {
-        return br.readLine().trim();
-    }
-    static double readDouble () throws IOException {
-        return Double.parseDouble(next());
-    }
-    static char readCharacter () throws IOException {
-        return next().charAt(0);
     }
 }

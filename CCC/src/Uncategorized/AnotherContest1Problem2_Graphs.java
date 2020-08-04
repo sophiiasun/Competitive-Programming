@@ -8,25 +8,38 @@ public class AnotherContest1Problem2_Graphs {
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        int N = readInt(), M = readInt(), Q = readInt();
+        int N = readInt(), M = readInt(), Q = readInt(), a, b, par[] = new int[N+1];
+        for (int i = 1; i <= N; i++) par[i] = i; // Initialize unions
         ArrayList<Integer>[] arr = new ArrayList[N+1];
-        for (int i = 0; i < N; i++) arr[i] = new ArrayList<>();
-        int a, b;
-        for (int i = 0; i < M; i++) {
+        for (int i = 1; i <= N; i++) arr[i] = new ArrayList<>();
+        for (int i = 0; i < M; i++) { // Build graph
             a = readInt(); b = readInt();
             arr[a].add(b); arr[b].add(a);
+            merge(a, b, par);
         }
-        for (int i = 0; i < Q; i++) {
-            Queue<Integer> queue1 = new LinkedList<>(); Queue<Integer> queue2 = new LinkedList<>();
-            boolean[] vis1 = new boolean[N+1], vis2 = new boolean[N+1];
-            a = readInt(); b = readInt();
-            queue1.add(a); queue2.add(b); vis1[a] = true; vis2[b] = true;
-            while (!queue1.isEmpty() || !queue2.isEmpty()) {
-                if (!queue1.isEmpty()) {
-                    int curr = queue1.poll();
 
-                }
-            }
+
+        for (int n = 0; n < Q; n++) { // Q queries
+            a = readInt(); b = readInt(); boolean found = false;
+
+            if (a == b) { System.out.println(0); continue; }
+            else if (par[a] != par[b]) { System.out.println(-1); continue; }
+
+            Queue<Integer> queue = new LinkedList<>(); queue.add(a); queue.add(b);
+            
+
+//            while (!q1.isEmpty() || !q2.isEmpty()) { // RUN BFS SIMULTANEOUSLY FROM BOTH ENDS
+                // Run from start node
+
+//            }
+            if (!found) System.out.println(-1);
+        }
+    }
+
+    static void merge (int a, int b, int[] arr) {
+        int A = Math.min(a, b), B = Math.max(a, b);
+        for (int i = 1; i < arr.length; i++) { // Always take smaller value
+            if (arr[i] == B) arr[i] = A;
         }
     }
 
@@ -35,19 +48,7 @@ public class AnotherContest1Problem2_Graphs {
             st = new StringTokenizer(br.readLine().trim());
         return st.nextToken();
     }
-    static long readLong () throws IOException {
-        return Long.parseLong(next());
-    }
     static int readInt () throws IOException {
         return Integer.parseInt(next());
-    }
-    static double readDouble () throws IOException {
-        return Double.parseDouble(next());
-    }
-    static char readCharacter () throws IOException {
-        return next().charAt(0);
-    }
-    static String readLine () throws IOException {
-        return br.readLine().trim();
     }
 }

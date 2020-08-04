@@ -1,5 +1,7 @@
 package CCC.Y2007;
 
+// Same concept as Knapsack DP Solution
+
 import java.util.*;
 import java.io.*;
 
@@ -11,18 +13,17 @@ public class S07Q5_BowlingForNumbers {
         int t = readInt();
         for (int T = 0; T < t; T++) {
             int n = readInt(), k = readInt(), w = readInt();
-            int[] psa = new int[n+1], val = new int[n+1];
-            int[][] dp = new int[2][n+1];
+            int[] psa = new int[n+1]; int[][] dp = new int[k+1][n+1]; // Initialize
             for (int i = 1; i <= n; i++) { // Input
-                val[i] = readInt();
+                psa[i] = psa[i-1] + readInt(); // Prefix Sum Array
             }
-            for (int i = 1; i <= k; i++) {
-                for (int j = n; j > 0; j--) {
-                    if (j < n-w) {
-//                        score
-                    }
+            for (int i = 1; i <= k; i++) { // Scan row by row
+                for (int j = 1; j <= n; j++) { // Scan col by col
+                    if (j <= w) dp[i][j] = psa[j]; // Get default value from PSA
+                    else dp[i][j] = Math.max(dp[i][j-1], psa[j]-psa[j-w] + dp[i-1][j-w]); // Either take it or don't take it
                 }
             }
+            System.out.println(dp[k][n]);
         }
     }
 
@@ -33,17 +34,5 @@ public class S07Q5_BowlingForNumbers {
     }
     static int readInt () throws IOException {
         return Integer.parseInt(next());
-    }
-    static long readLong () throws IOException {
-        return Long.parseLong(next());
-    }
-    static double readDouble () throws IOException {
-        return Double.parseDouble(next());
-    }
-    static char readCharacter () throws IOException {
-        return next().charAt(0);
-    }
-    static String readLine () throws IOException {
-        return br.readLine().trim();
     }
 }

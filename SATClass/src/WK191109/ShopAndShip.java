@@ -1,7 +1,5 @@
 package WK191109;
 
-import sun.font.ExtendedTextLabel;
-
 import java.util.*;
 
 public class ShopAndShip {
