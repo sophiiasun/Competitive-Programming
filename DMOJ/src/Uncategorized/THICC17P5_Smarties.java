@@ -16,7 +16,7 @@ public class THICC17P5_Smarties {
                 bs.set(a[j]);
                 if (bs.cardinality() >= K) ans++;
             }
-            
+
         }
     }
 
