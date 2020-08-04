@@ -1,11 +1,9 @@
-package COCI;
+package COCI.Y2007;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class COCI07_ZapisV1 {
+public class COCI07_Zapis {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
@@ -39,9 +37,7 @@ public class COCI07_ZapisV1 {
         }
 
         long n = dp[0][N-1];
-        if (n>=100000) {
-            System.out.println(String.format("%05d", n%100000));
-        }
+        if (n>=100000) System.out.println(String.format("%05d", n%100000));
         else System.out.println(n);
     }
 

@@ -1,4 +1,4 @@
-package COCI;
+package COCI.Y2006;
 
 import java.util.*;
 import java.io.*;

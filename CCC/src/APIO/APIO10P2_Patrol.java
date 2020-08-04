@@ -30,7 +30,7 @@ public class APIO10P2_Patrol {
             map.put(maxN1, new C(prev, -1));
             dfs2(1, 1);
         }
-        System.out.println(((N-1)<<1) - (K-1) * maxD2 - maxD1 + K);
+        System.out.println(((N-1)<<1) - maxD2 - maxD1 + K);
     }
 
     static int dfs2 (int prev, int curr) {
@@ -40,7 +40,7 @@ public class APIO10P2_Patrol {
                 int tmp = dfs2(curr, i);
                 if (!map.containsKey(curr) || (map.get(curr).c != i && map.get(curr).p != i)) tmp++;
                 else tmp--;
-                if (tmp >= high1) { high2 = high1; high1 = tmp; }
+                if (tmp > high1) { high2 = high1; high1 = tmp; }
                 else if (tmp > high2) high2 = tmp;
             }
         }

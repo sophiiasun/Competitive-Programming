@@ -8,8 +8,6 @@ public class DMOPC14_Aurora {
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        double TIME = System.currentTimeMillis();
-
         final int N = readInt(), M = readInt(); long A = readInt(), B = readInt(), C = readInt();
         int arr[] = new int[N+1]; long time[] = new long[N+1];
         for (int i = 1; i <= N; i++) arr[i] = readInt();
@@ -28,14 +26,11 @@ public class DMOPC14_Aurora {
                 tc = C * (N - i); // time taken for remaining soldiers to get off of Aurora
                 if (tb <= tc + time[i]) {
                     t += C; time[i] = tb;
-                } else over = true; // Everyone remaining should take Aurora }
+                } else over = true; // Everyone remaining should take Aurora
             }
             time[i] += time[i-1];
         }
         System.out.println(time[N]);
-
-        TIME = (System.currentTimeMillis() - TIME);
-        if (TIME >= 600) System.out.println(TIME);
     }
 
     static String next() throws IOException {

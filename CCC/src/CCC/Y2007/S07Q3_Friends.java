@@ -3,7 +3,7 @@ package CCC.Y2007;
 import java.util.*;
 import java.io.*;
 
-public class S07Q4_Friends {
+public class S07Q3_Friends {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 

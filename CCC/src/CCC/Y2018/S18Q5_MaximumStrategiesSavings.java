@@ -1,116 +1,54 @@
 package CCC.Y2018;
 
 import java.util.*;
+import java.io.*;
 
 public class S18Q5_MaximumStrategiesSavings {
-    static int N, M, P, Q;
-    static int[] arrP; //Planets
-    static int[] arrC; //Cities
-    static long totalCost;
-    static long buildCost;
-    static int cityCNT, cityID;
-    static int planetCNT, planetID;
-    static HashMap<Integer, Set<Integer>> connP = new HashMap<>();
-    static HashMap<Integer, Set<Integer>> connC = new HashMap<>();
-    static ArrayList<Connection> aLink = new ArrayList<>();
-    public static void main(String[] args) {
-        init();
-        run();
-        out();
-    }
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
+    static StringTokenizer st;
 
-    static void out() {
-        System.out.println(totalCost - buildCost);
-    }
+    static int N, M, P, Q, pf[], pp[];
+    static long ori = 0, cost = 0;
+    static ArrayList<C> all = new ArrayList<>();
 
-    static void run() {
-        int cnt = 0;
-        for (Connection conn : aLink) {
-            if (conn.isPortal) {
-                if (!isConnected(arrP[conn.s], arrP[conn.e])) {
-                    cnt = M - cityCNT;
-                    buildCost += (long) conn.c * cnt;
-                    connect(true, connP, arrP, conn.s, conn.e);
-                    planetCNT++;
-                }
+    public static void main(String[] args) throws IOException {
+        N = readInt(); M = readInt(); P = readInt(); Q = readInt();
+        pf = new int[M+1]; pp = new int[N+1];
+        for (int i = 1, a, b, c; i <= N; i++) {
+            pp[i] = i; a = readInt(); b = readInt(); c = readInt(); all.add(new C(a, b, c, 0)); ori += c * N;
+        }
+        for (int i = 1, a, b, c; i <= M; i++) {
+            pf[i] = i; a = readInt(); b = readInt(); c = readInt(); all.add(new C(a, b, c, 1)); ori += c * M;
+        }
+        Collections.sort(all);
+        for (C cur : all) { // check flights
+            if (cur.d == 0) {
+                if (findf(cur.a) == findf(cur.b)) continue;
+                pf[cur.a] = findf(cur.b); cost += cur.c * N; M--;
             } else {
-                if (!isConnected(arrC[conn.s], arrC[conn.e])) {
-                    cnt = N - planetCNT;
-                    buildCost += (long) conn.c * cnt;
-                    connect(false, connC, arrC, conn.s, conn.e);
-                    cityCNT++;
-                }
+                if (findp(cur.a) == findp(cur.b)) continue;
+                pp[cur.a] = findp(cur.b); cost += cur.c * M; N--;
             }
-            if (planetCNT == N - 1 && cityCNT == M - 1)
-                return;
         }
+        System.out.println(ori - cost);
     }
 
-    static void connect(boolean isPlanet, HashMap<Integer, Set<Integer>> map, int[] groups, int c1, int c2) {
-        if (groups[c1] == 0 && groups[c2] == 0) {
-            Set<Integer> set = new HashSet<>();
-            set.add(c1);
-            set.add(c2);
-            int groupID = isPlanet ? ++planetID : ++cityID;
-            map.put(groupID, set);
-            groups[c1] = groups[c2] = groupID;
-        } else if (groups[c1] == 0 && groups[c2] != 0) {
-            map.get(groups[c2]).add(c1);
-            groups[c1] = groups[c2];
-        } else if (groups[c1] != 0 && groups[c2] == 0) {
-            map.get(groups[c1]).add(c2);
-            groups[c2] = groups[c1];
-        } else if (groups[c1] != 0 && groups[c2] != 0) {
-            int tar = Math.min(groups[c1], groups[c2]);
-            int src = Math.max(groups[c1], groups[c2]);
-            map.get(tar).addAll(map.get(src));
-            for (int i : map.get(src)) {
-                groups[i] = tar;
-            }
-            map.remove(src);
-        }
+    static int findf (int a) { return pf[a] = a == pf[a] ? pf[a] : findf(pf[a]); }
+
+    static int findp (int a) { return pp[a] = a == pp[a] ? pp[a] : findp(pp[a]); }
+
+    static class C implements Comparable<C> {
+        int a, b, c, d;
+        C(int aa, int bb, int cc, int dd) { a = aa; b = bb; c = cc; d = dd; }
+        public int compareTo(C other) { return c - other.c; }
     }
 
-    static boolean isConnected(int a, int b) {
-        return (a == b && a != 0);
+    static String next() throws IOException {
+        while (st == null || !st.hasMoreTokens())
+            st = new StringTokenizer(br.readLine().trim());
+        return st.nextToken();
     }
-
-    static void init() {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        M = sc.nextInt();
-        P = sc.nextInt();
-        Q = sc.nextInt();
-        arrP = new int[N];
-        arrC = new int[M];
-        int a, b, c, x, y, z;
-        for (int i = 0; i < P; i++) {
-            a = sc.nextInt();
-            b = sc.nextInt();
-            c = sc.nextInt();
-            totalCost += (long) c * N;
-            if (a != b)
-                aLink.add(new Connection(a - 1, b - 1, c, false));
-        }
-        for (int i = 0; i < Q; i++) {
-            x = sc.nextInt();
-            y = sc.nextInt();
-            z = sc.nextInt();
-            totalCost += (long) z * M;
-            if (x != y)
-                aLink.add(new Connection(x - 1, y - 1, z, true));
-        }
-        Collections.sort(aLink, (c1, c2) -> (c1.c - c2.c));
-    }
-
-    static class Connection {
-        boolean isPortal = false;
-        int s, e, c;
-        Connection(int s, int e, int c, boolean isPortal) {
-            this.s = s;
-            this.e = e;
-            this.c = c;
-            this.isPortal = isPortal;
-        }
+    static int readInt () throws IOException {
+        return Integer.parseInt(next());
     }
 }

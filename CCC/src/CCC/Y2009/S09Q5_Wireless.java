@@ -7,7 +7,7 @@ public class S09Q5_Wireless {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
-    static int N, M, K, difA[][];
+    static int N, M, K, pda[][];
     static Point[] loc;
 
     public static void main(String[] args) throws IOException {
@@ -17,20 +17,14 @@ public class S09Q5_Wireless {
             a = readInt(); b = readInt();
             loc[i] = new Point(b - 1,  a - 1, readInt(), readInt());
         }
-        difA = new int[N][M];
-        for (int i = 0; i < K; i++) {
-            checkArea(loc[i]);
-        }
+        pda = new int[N][M];
+        for (int i = 0; i < K; i++) { checkArea(loc[i]); }
         int max = 0; int cnt = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                if (j > 0)
-                    difA[i][j] += difA[i][j-1];
-                if (difA[i][j] > max) {
-                    max = difA[i][j];
-                    cnt = 1;
-                } else if (difA[i][j] == max)
-                    cnt++;
+                if (j > 0) pda[i][j] += pda[i][j-1];
+                if (pda[i][j] > max) { max = pda[i][j]; cnt = 1; }
+                else if (pda[i][j] == max) cnt++;
             }
         }
         System.out.println(max);
@@ -46,13 +40,13 @@ public class S09Q5_Wireless {
             C = P.c - dis;
             if (P.c - dis < 0) C = 0;
             if (P.r + i < N) { //row below
-                difA[P.r + i][C] += P.bit;
-                if (P.c + dis + 1 < M) difA[P.r + i][P.c + dis + 1] -= P.bit;
+                pda[P.r + i][C] += P.bit;
+                if (P.c + dis + 1 < M) pda[P.r + i][P.c + dis + 1] -= P.bit;
             }
             if (i == 0) continue;
             if (P.r - i >= 0) { //row above
-                difA[P.r - i][C] += P.bit;
-                if (P.c + dis + 1 < M) difA[P.r - i][P.c + dis + 1] -= P.bit;
+                pda[P.r - i][C] += P.bit;
+                if (P.c + dis + 1 < M) pda[P.r - i][P.c + dis + 1] -= P.bit;
             }
         }
     }

@@ -11,17 +11,12 @@ public class BTS17_WetMud {
         int N = readInt(), M = readInt(), J = readInt();
         if (N >= J) {
             int[][] dry = new int[M][2];
-            for (int i = 0; i < M; i++) {
-                dry[i][0] = readInt();
-                dry[i][1] = readInt();
-            }
+            for (int i = 0; i < M; i++) { dry[i][0] = readInt(); dry[i][1] = readInt(); }
             Arrays.sort(dry, (int[] a, int[] b) -> a[1] - b[1]);
-            boolean[] mud = new boolean[N + 2];
+            boolean[] mud = new boolean[N+2];
             Arrays.fill(mud, true);
-            mud[0] = false;
-            mud[N + 1] = false;
-            int time = 0;
-            int pos = 0;
+            mud[0] = mud[N + 1] = false;
+            int time, pos = 0;
             for (int i = 0; i < M; i++) {
                 if (dry[i][0] > pos) {
                     time = dry[i][1];
@@ -29,13 +24,9 @@ public class BTS17_WetMud {
                     boolean jump;
                     do {
                         jump = false;
-                        if (pos + J > N) {
-                            System.out.println(time); System.exit(0);
-                        }
+                        if (pos + J > N) { System.out.println(time); return; }
                         for (int j = J; j > 0; j--) {
-                            if (!mud[pos + j]) {
-                                pos += j; jump = true; break;
-                            }
+                            if (!mud[pos + j]) { pos += j; jump = true; break; }
                         }
                     } while (jump);
                 }

@@ -1,28 +1,28 @@
-package COCI;
+package COCI.Y2006;
 
 import java.util.*;
 import java.io.*;
 
-public class COCI13_Putnik {
+public class COCI06_Ivana {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
-    static int n, adj[][], dp[][];
-
     public static void main(String[] args) throws IOException {
-        n = readInt(); adj = new int[n+1][n+1]; dp = new int[n+1][n+1];
+        int n = readInt(), dp[][] = new int[n*2 + 1][n*2 + 1];
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) adj[i][j] = readInt();
+            dp[i][i] = dp[n+i][n+i] = readInt() % 2;
         }
-        System.out.println(run(1, 1));
-    }
-
-    static int run(int s, int e) {
-        if (s == n || e == n) return 0;
-        if (dp[s][e] > 0) return dp[s][e];
-        int next = Math.max(s, e) + 1; // next left..right or left..right next
-        dp[s][e] = Math.min(adj[next][s] + run(next, e), adj[e][next] + run(s, next));
-        return dp[s][e];
+        for (int len = 1; len < n; len++) {
+            for (int s = 1; s + len <= n*2; s++) {
+                int e = s + len;
+                dp[s][e] = Math.max(dp[s][s] - dp[s+1][e], dp[e][e] - dp[s][e-1]);
+            }
+        }
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dp[i][i] - dp[i+1][i-1+n] > 0) ans++;
+        }
+        System.out.println(ans);
     }
 
     static String next() throws IOException {

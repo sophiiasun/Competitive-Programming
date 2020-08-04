@@ -1,24 +1,23 @@
-package CCC;
+package COCI.Y2008;
 
 import java.util.*;
 import java.io.*;
 
-public class CCO {
+public class COCI08C3P6_Najkraci {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
-    static int N, L, pf, pb;
-    static long arr[], dp[], dq[];
+    static int N, M, mod = (int)1e9+7;
+    static long cnt[];
+    static ArrayList<C> adj[];
 
     public static void main(String[] args) throws IOException {
-        N = readInt(); L = readInt();  pf = pb = 1;
-        arr = new long[N+1]; dp = new long[N+1]; dq = new long[N+2];
-
+        N = readInt(); M = readInt(); cnt = new long[M+1];
     }
 
-    static void calc (long m, long n) {
-        int a = (int)m, b = (int)n;
-
+    static class C{
+        int a, b, c;
+        C(int aa, int bb, int cc) { a = aa; b = bb; c = cc; }
     }
 
     static String next() throws IOException {

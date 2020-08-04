@@ -1,26 +1,24 @@
-package COCI;
+package COI;
 
 import java.util.*;
 import java.io.*;
 
-public class COCI06_Ivana {
+public class COI06_Patrik {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        int n = readInt(), dp[][] = new int[n*2 + 1][n*2 + 1];
-        for (int i = 1; i <= n; i++) {
-            dp[i][i] = dp[n+i][n+i] = readInt() % 2;
-        }
-        for (int len = 1; len < n; len++) {
-            for (int s = 1; s + len <= n*2; s++) {
-                int e = s + len;
-                dp[s][e] = Math.max(dp[s][s] - dp[s+1][e], dp[e][e] - dp[s][e-1]);
+        int N = readInt(), a[] = new int[N+1], pf = 1, pb = 1, q[] = new int[N+2], c[] = new int[N+1];
+        long ans = 0;
+        for (int i = 1; i <= N; i++) { a[i] = readInt(); c[i] = 1; }
+        for (int i = 1; i <= N; i++) {
+            while (pf < pb && a[q[pb]] <= a[i]) {
+                ans += c[q[pb]];
+                if (a[i] == a[q[pb]]) c[i] += c[q[pb]];
+                pb--;
             }
-        }
-        int ans = 0;
-        for (int i = 1; i <= n; i++) {
-            if (dp[i][i] - dp[i+1][i-1+n] > 0) ans++;
+            if (pf < pb) ans++;
+            q[++pb] = i;
         }
         System.out.println(ans);
     }
