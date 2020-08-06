@@ -7,7 +7,7 @@ public class Raider {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
-    static int N, M, in[], low[], id[], dfn[], cnt=1, idx=1, c[], mod = (int)1e9+7;
+    static int N, M, in[], low[], id[], dfn[], cnt=1, idx=1, c[], mod = 1000000007;
     static C dp[][];
     static boolean inStack[], vis[];
     static ArrayList<Integer>[] adj, dag;
@@ -37,20 +37,20 @@ public class Raider {
         }
         C cc = new C(0, 0);
         for (int i : dag[cur]) {
-            for (int j = take; j >= 0; j--) {
-            C d = dfs(i, j);
-            if (j==1) d.n += c[cur]; // taken
-            if (d.n > cc.n) cc = d; // new high
-            else if (d.n == cc.n) cc.c = (cc.c + d.c) % mod; // increase count
+            for (int j = take^1; j <= 1; j++) {
+                C d = dfs(i, j);
+                if (j==0) d.n += c[cur]; // taken
+                if (d.n > cc.n) { cc.n = d.n; cc.c = d.c; } // new high
+                else if (d.n == cc.n) cc.c = (cc.c + d.c) % mod; // increase count
+            }
         }
-    }
         return dp[cur][take] = cc;
     }
 
     static void build () {
         for (int i = 1; i <= N; i++) {
             for (int j : adj[i]) { if (id[i] != id[j]) dag[id[i]].add(id[j]); }
-            adj[i].clear();
+//            adj[i].clear();
         }
     }
 
@@ -73,8 +73,8 @@ public class Raider {
     }
 
     static class C{
-        int n, c;
-        C (int nn, int cc) { n = nn; c = cc; }
+        long n, c;
+        C (long nn, long cc) { n = nn; c = cc; }
     }
 
     static String next() throws IOException {
