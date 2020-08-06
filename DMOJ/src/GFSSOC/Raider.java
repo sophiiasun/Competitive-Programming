@@ -25,13 +25,14 @@ public class Raider {
         for (int i = 1; i <= N; i++) { if (!vis[i]) tarjan(i); } // find scc
         build();
         for (int i = 1; i <= N; i++) c[id[i]] += in[i]; // merge costs based on scc
-        dfs(id[1], 1);
-        System.out.println(dp[id[1]][1].n + " " + dp[id[1]][1].c);
+        C ans = dfs(id[1], 1);
+        System.out.println(ans.n + " " + ans.c);
     }
 
-    static C dfs(int cur, int take) { // cur node, taken == take prev?
+    static C dfs(int cur, int take) { // cur node, takeable or not
         if (dp[cur][take].n != -1 && dp[cur][take].c != -1) return new C (dp[cur][take].n, dp[cur][take].c);
         if (cur == id[N]) { // reached end
+//            return new C(take==1 ? c[cur] : 0, 1);
             dp[cur][take] = new C(take==1 ? c[cur] : 0, 1);
             return new C (dp[cur][take].n, dp[cur][take].c);
         }
@@ -39,12 +40,13 @@ public class Raider {
         for (int i : dag[cur]) {
             for (int j = take^1; j <= 1; j++) {
                 C d = dfs(i, j);
-                if (j==0) d.n += c[cur]; // taken
+                if (j==0) d.n += c[cur]; // take
                 if (d.n > cc.n) { cc.n = d.n; cc.c = d.c; } // new high
                 else if (d.n == cc.n) cc.c = (cc.c + d.c) % mod; // increase count
             }
         }
-        return dp[cur][take] = cc;
+        dp[cur][take] = cc;
+        return new C(cc.n, cc.c);
     }
 
     static void build () {
