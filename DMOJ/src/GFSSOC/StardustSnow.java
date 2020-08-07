@@ -8,38 +8,29 @@ public class StardustSnow {
     static StringTokenizer st;
 
     static int R, C, S, B, K, M, dp[][][][];
-//    static C a[][]; a[readInt()][readInt()] = new C(t, v);
-     static ArrayList<C>[] adj;
+    static ArrayList<C>[] adj;
 
     public static void main(String[] args) throws IOException {
         R = readInt(); C = readInt(); S = readInt(); B = readInt(); K = readInt(); M = readInt();
-        dp = new int[C+1][R+1][K+1][B+1]; /*a = new C[R+1][C+1];*/ adj = new ArrayList[R+1];
+        dp = new int[C+1][R+1][K+1][B+1]; adj = new ArrayList[R+1];
         for (int i = 1; i <= R; i++) adj[i] = new ArrayList<>();
-        for (int i = 0, t, v; i < S; i++) { t = readInt(); v = readInt(); adj[readInt()].add(new C(readInt(), t, v));  }
-        for (int i = 1; i <= R; i++) for (int j = 0; j <= C; j++) for (int k = 0; k <= K; k++) Arrays.fill(dp[i][j][k], -1);
-        run(1, 1, 0, 0);
+        for (int i = 0, t, v, c; i < S; i++) { t = readInt(); v = readInt(); c = readInt(); adj[readInt()].add(new C(c, t, v));  }
+        for (int i = 0; i <= C; i++) for (int j = 0; j <= R; j++) for (int k = 0; k <= K; k++) Arrays.fill(dp[i][j][k], -1);
+        System.out.println(run(1, 1, 0, 0));
     }
 
     static int run(int p, int h, int k, int t) {
+        if (h == R+1 || k > K || t >= B) return 0;
         if (dp[p][h][k][t] != -1) return dp[p][h][k][t];
         int ret = 0;
         for (C c : adj[h]) {
-            if (Math.abs(p-c.p) <= M) {
-
+            if (Math.abs(p-c.p) <= M ) {
+                ret = Math.max(ret, run(c.p, h+1, k, t)); // don't take
+                if (k < K && t + c.t < B) ret = Math.max(ret, c.v + run(c.p, h+1, k+1, t+c.t));
             }
-        }
-
-        for (int i = Math.max(0, -M); i <= M; i++) {
-            ret = Math.max(ret, run(p+i, h+1, k, t)); // don't take cur
-            ret = Math.max(ret, run(p+i, h+1, k+)); // take cur
         }
         return dp[p][h][k][t] = ret;
     }
-
-//    static class C {
-//        int t, v;
-//        C (int tt, int vv) { t = tt; v = vv; }
-//    }
 
     static class C {
         int p, t, v;
