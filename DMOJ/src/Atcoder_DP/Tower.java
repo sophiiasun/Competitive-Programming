@@ -1,21 +1,24 @@
-package CCC.Y2010;
+package Atcoder_DP;
 
 import java.util.*;
 import java.io.*;
 
-public class S10Q5_NutrientTree2 {
+public class Tower {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
-    static int X;
-    static String in;
+    static int N;
+    static C a[];
 
     public static void main(String[] args) throws IOException {
-        in = readLine(); init(); X = readInt();
+        N = readInt(); a = new C[N+1];
+        for (int i = 1; i <= N; i++) a[i] = new C (readInt(), readInt(), readInt());
+
     }
 
-    static void init() {
-        
+    static class C {
+        int w, s; long v;
+        C (int ww, int ss, long vv) { w = ww; s = ss; v = vv; }
     }
 
     static String next() throws IOException {
@@ -25,8 +28,5 @@ public class S10Q5_NutrientTree2 {
     }
     static int readInt () throws IOException {
         return Integer.parseInt(next());
-    }
-    static String readLine () throws IOException {
-        return br.readLine().trim();
     }
 }
