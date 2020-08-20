@@ -13,11 +13,12 @@ public class TLE15P2_Microwaves {
         Arrays.sort(a); // this question so confusing ? or am i just bad :/
         PriorityQueue<Long> pq = new PriorityQueue<>(); // stores end time of microwaves
         for (int i = 0; i < N; i++) pq.add(0L);
+        long time = 0;
         for (int i = 0; i < M; i++) {
-            long cur = pq.poll(); // cur is end time of most recent microwave
-            if (a[i].t - cur >= T) { System.out.println(cur); return; }
-            if (a[i].t < cur) pq.add(cur+a[i].f);
-            else pq.add((long)a[i].t + (long)a[i].f);
+            long cur = pq.poll(); time += cur; // cur is end time of most recent microwave
+            if (a[i].t - cur >= T) { System.out.println(cur); return; } // condition satisfied
+            if (a[i].t < cur) pq.add(cur+a[i].f); // gotta wait before microwave is available
+            else pq.add((long)a[i].t + (long)a[i].f); // microwave available before start time
 //            if (wait >= T) { System.out.println(pq.peek()); return; } // first condition satisfied
         }
         System.out.println(pq.peek()); // wait until the very end

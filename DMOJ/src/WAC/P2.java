@@ -14,7 +14,7 @@ public class P2 {
         for (int i = N; i > 0; i--) { a[i] = readInt(); dif[i] = a[i] - a[0]; }
         for (int i = 0, x, y; i < Q; i++) {
             x = readInt(); y = readInt();
-            if (!map.containsKey(y)) map.put()
+//            if (!map.containsKey(y)) map.put();
         }
         Arrays.sort(que, (C x, C y)->(x.b - y.b));
         for (int i = 0; i < N; i++) {
