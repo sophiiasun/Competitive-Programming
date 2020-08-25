@@ -1,9 +1,7 @@
 package APIO;
 
-import java.util.*;
 import java.io.*;
-
-// DOESN'T WORK
+import java.util.*;
 
 public class APIO14_SplitTheSequence {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
@@ -20,13 +18,14 @@ public class APIO14_SplitTheSequence {
         for (int i = 1; i <= K; i++, pos^=1) {
             pf = pb = 1; int tmp = pos^1;
             for (int j = 1; j <= N; j++) {
-                while (pf < pb && calc(tmp, dq[pf], dq[pf+1]) <= (double)a[j]) pf++;
-                dp[pos][j] = dp[tmp][dq[pf]] + (a[N] - a[j]) * (a[j] - a[dq[pf]]);
-                order[i][j] = dq[pf];
-                while (pf < pb && calc(tmp, dq[pb-1], dq[pb]) <= calc(tmp, dq[pb], j)) pb--;
+                while (pf < pb && calc(tmp, dq[pf], dq[pf+1]) <= a[j]*(a[dq[pf+1]] - a[dq[pf]])) pf++;
+                int s = dq[pf];
+                dp[pos][j] = dp[tmp][s] + a[s] * (a[j] - a[s]);
+                order[i][j] = s;
+                while (pf < pb && calc(tmp, dq[pb], dq[pb-1])*(a[dq[pb]]-a[j]) >= calc(tmp, j, dq[pb])*(a[dq[pb-1]]-a[dq[pb]])) pb--;
                 dq[++pb] = j;
             }
-            debug(pos, dq[pf]);
+//            debug(pos, dq[pf]);
         }
         int k = K;
         System.out.println(dp[pos^1][N]);
@@ -35,10 +34,8 @@ public class APIO14_SplitTheSequence {
         System.out.println();
     }
 
-    //a[k]==a[j] ? -1.0e20 :
-
-    static double calc(int i, int j, int k) {
-        return (double)(dp[i][j] - dp[i][k] - a[j]*a[N] + a[k]*a[N]) / ((double)a[k] - a[j]);
+    static long calc(int i, int j, int k) {
+        return dp[i][j] - dp[i][k] - a[j]*a[j] + a[k]*a[k];
     }
 
     static void debug(int k, int front) {
