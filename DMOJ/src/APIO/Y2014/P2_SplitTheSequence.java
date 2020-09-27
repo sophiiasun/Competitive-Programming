@@ -1,11 +1,12 @@
-package APIO;
+package APIO.Y2014;
 
 import java.util.*;
 import java.io.*;
 
-// DOESN'T WORK
+import java.io.*;
+import java.util.*;
 
-public class split2 {
+public class P2_SplitTheSequence {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
@@ -19,22 +20,19 @@ public class split2 {
 
         for (int i = 1; i <= K; i++, pos^=1) {
             pf = pb = 1; int tmp = pos^1;
-            Arrays.fill(dq, 0);
             for (int j = 1; j <= N; j++) {
-                while (pf < pb && calc(tmp, pf, pf + 1) <= a[j]*(a[pf + 1] - a[pf])) pf++;
+                while (pf < pb && calc(tmp, dq[pf], dq[pf+1]) <= a[j]*(a[dq[pf+1]] - a[dq[pf]])) pf++;
                 int s = dq[pf];
-                dp[pos][j] = dp[tmp][s] + a[pf] * (a[j] - a[pf]);
-                order[i][j] = s + 1;
-                while (pf < pb && calc(tmp, pb-1, pb) < calc(tmp, pb, j)) pb--;
+                dp[pos][j] = dp[tmp][s] + a[s] * (a[j] - a[s]);
+                order[i][j] = s;
+                while (pf < pb && calc(tmp, dq[pb], dq[pb-1])*(a[dq[pb]]-a[j]) >= calc(tmp, j, dq[pb])*(a[dq[pb-1]]-a[dq[pb]])) pb--;
                 dq[++pb] = j;
             }
-            debug(pos, dq[pf]);
+//            debug(pos, dq[pf]);
         }
         int k = K;
-        System.out.println("============================================");
         System.out.println(dp[pos^1][N]);
-        for (int i = order[k][N]; i > 0; i = order[--k][i])
-            out[k] = i;
+        for (int i = order[k][N]; i > 0; i = order[--k][i]) out[k] = i;
         for (int i = 1; i <= K; i++) System.out.print(out[i] + " ");
         System.out.println();
     }

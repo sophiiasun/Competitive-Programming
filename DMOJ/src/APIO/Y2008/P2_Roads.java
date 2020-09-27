@@ -1,9 +1,9 @@
-package APIO;
+package APIO.Y2008;
 
 import java.util.*;
 import java.io.*;
 
-public class APIO08P2_Roads {
+public class P2_Roads {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 

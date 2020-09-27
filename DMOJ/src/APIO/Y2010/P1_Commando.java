@@ -1,9 +1,9 @@
-package APIO;
+package APIO.Y2010;
 
 import java.util.*;
 import java.io.*;
 
-public class APIO10P1_Commando {
+public class P1_Commando {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 

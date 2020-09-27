@@ -1,9 +1,9 @@
-package APIO;
+package APIO.Y2012;
 
 import java.util.*;
 import java.io.*;
 
-public class Dispatching {
+public class P1_Dispatching {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
