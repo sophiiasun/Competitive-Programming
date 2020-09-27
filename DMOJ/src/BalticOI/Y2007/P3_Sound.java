@@ -1,9 +1,9 @@
-package BalticOI;
+package BalticOI.Y2007;
 
 import java.util.*;
 import java.io.*;
 
-public class BalticOI07P3_Sound {
+public class P3_Sound {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
