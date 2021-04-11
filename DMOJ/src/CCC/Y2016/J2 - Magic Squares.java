@@ -1,8 +1,7 @@
-package CCC.Y2016;
+import java.io.*;
+import java.util.*;
 
-import java.util.Scanner;
-
-public class J16Q3_MagicSquare {
+public class Main {
     public static void main(String[] args){
         Scanner sc=new Scanner(System.in);
         int[][] arr=new int[4][4];
