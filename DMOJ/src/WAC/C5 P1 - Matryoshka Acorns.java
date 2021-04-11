@@ -1,9 +1,7 @@
-package WAC;
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class P1 {
+public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 

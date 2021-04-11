@@ -7,17 +7,13 @@ public class SwapitySwap {
     public static void main(String[] args) throws IOException{
         BufferedReader sc = new BufferedReader (new FileReader("swap.in"));
         String[] in = sc.readLine().split(" ");
-        int N = Integer.parseInt(in[0]);
-        int K = Integer.parseInt(in[1]);
+        int N = Integer.parseInt(in[0]), K = Integer.parseInt(in[1]);
         int[] arr = new int[N];
-        for (int i = 1; i <= N; i++)
-            arr[i-1] = i;
+        for (int i = 1; i <= N; i++) arr[i-1] = i;
         in = sc.readLine().split(" ");
-        int swapA1 = Integer.parseInt(in[0]) - 1;
-        int swapA2 = Integer.parseInt(in[1]) - 1;
+        int swapA1 = Integer.parseInt(in[0]) - 1, swapA2 = Integer.parseInt(in[1]) - 1;
         in = sc.readLine().split(" ");
-        int swapB1 = Integer.parseInt(in[0]) - 1;
-        int swapB2 = Integer.parseInt(in[1]) - 1;
+        int swapB1 = Integer.parseInt(in[0]) - 1, swapB2 = Integer.parseInt(in[1]) - 1;
 
         int counter = 1;
         HashMap<Integer, String> map = new HashMap<>();
@@ -28,51 +24,34 @@ public class SwapitySwap {
         int num = 0;
         for (int i = 0; i < K; i++) {
             String tmps = getString(arr);
-            if (set.contains(tmps)){
-                found = true;
-//                num = rev.get(tmps);
-//                if (num >= rev.size())
-//                    num = 0;
-//                arr = getArray(map.get(num+1));
-                break;
-            } else {
+            if (set.contains(tmps)){ found = true; break;} 
+            else {
                 String str = getString(arr);
-                map.put(counter, str);
-                rev.put(str, counter);
-                counter++;
-                set.add(str);
+                map.put(counter, str); rev.put(str, counter);
+                counter++; set.add(str);
                 int s = swapA1, e = swapA2; //swap1
                 while (e > s) {
                     int tmp = arr[s];
-                    arr[s] = arr[e];
-                    arr[e] = tmp;
-                    s++;
-                    e--;
+                    arr[s] = arr[e]; arr[e] = tmp;
+                    s++; e--;
                 }
-                s = swapB1;
-                e = swapB2; //swap2
+                s = swapB1; e = swapB2; //swap2
                 while (e > s) {
                     int tmp = arr[s];
-                    arr[s] = arr[e];
-                    arr[e] = tmp;
-                    s++;
-                    e--;
+                    arr[s] = arr[e]; arr[e] = tmp;
+                    s++; e--;
                 }
             }
         }
 
         if (found) {
             int remainder = K % (counter - 1);
-//        System.out.println(remainder);
             arr = getArray(map.get(remainder + 1));
         }
         PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("swap.out")));
-//        out.println(remainder);
         for (int i = 0; i < N; i++)
             out.println(arr[i]);
-        out.flush();
-        out.close();
-        System.exit(0);
+        out.flush(); out.close(); System.exit(0);
     }
 
     static int[] getArray(String str) {
