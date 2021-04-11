@@ -1,9 +1,7 @@
-package DMOPC.Y2019.C7;
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class DMOPC19_TreePruning {
+public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 

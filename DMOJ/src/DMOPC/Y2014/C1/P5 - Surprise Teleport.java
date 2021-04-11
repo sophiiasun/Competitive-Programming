@@ -1,8 +1,7 @@
-package DMOPC.Y2014.C1;
-
+import java.io.*;
 import java.util.*;
 
-public class P5_SurpriseTeleport {
+public class Main {
     static int endR, endC;
     static char[][] arr;
     static int portal = Integer.MAX_VALUE, office = Integer.MAX_VALUE;
@@ -63,6 +62,4 @@ public class P5_SurpriseTeleport {
         else
             System.out.println(0);
     }
-
-
 }

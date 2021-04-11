@@ -1,9 +1,7 @@
-package DMOPC.Y2013.C4;
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class P1_SharingIsCaring {
+public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
@@ -13,7 +11,7 @@ public class P1_SharingIsCaring {
         for (int i = 0; i < M; i++) a[i] = new C(readInt(), readInt(), readLine());
         int Y = readInt();
         for (int i = 0; i < M; i++) {
-            if (a[i].a != Y && a[i].b == Y) System.out.println(a[i].s);
+            if (a[i].b == Y) System.out.println(a[i].s);
         }
     }
 
