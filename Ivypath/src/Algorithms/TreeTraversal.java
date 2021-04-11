@@ -33,8 +33,7 @@ public class TreeTraversal {
         System.out.println("\n");
     }
 
-    private static void doDFS_PreOrder(BinaryTreeNode oN)
-    {
+    private static void doDFS_PreOrder(BinaryTreeNode oN) {
         System.out.print(oN.sName + "-");
         if(oN.oLeft != null)
             doDFS_PreOrder(oN.oLeft);
@@ -42,8 +41,7 @@ public class TreeTraversal {
             doDFS_PreOrder(oN.oRight);
     }
 
-    private static void doDFS_InOrder(BinaryTreeNode oN)
-    {
+    private static void doDFS_InOrder(BinaryTreeNode oN) {
         if(oN.oLeft != null)
             doDFS_InOrder(oN.oLeft);
         System.out.print(oN.sName + "-");
@@ -51,8 +49,7 @@ public class TreeTraversal {
             doDFS_InOrder(oN.oRight);
     }
 
-    private static void doDFS_PostOrder(BinaryTreeNode oN)
-    {
+    private static void doDFS_PostOrder(BinaryTreeNode oN) {
         if(oN.oLeft != null)
             doDFS_PostOrder(oN.oLeft);
         if(oN.oRight != null)
@@ -60,8 +57,7 @@ public class TreeTraversal {
         System.out.print(oN.sName + "-");
     }
 
-    private static void doBFS(BinaryTreeNode oN)
-    {
+    private static void doBFS(BinaryTreeNode oN) {
         Queue<BinaryTreeNode> oQue = new LinkedList();
         oQue.add(oN);
 
