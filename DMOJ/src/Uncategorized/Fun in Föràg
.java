@@ -1,9 +1,7 @@
-package Uncategorized;
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class FunInForag_2 {
+public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
