@@ -1,9 +1,7 @@
-package GFSSOC;
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class StardustSnow {
+public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in), 1<<20);
     static StringTokenizer st;
 
