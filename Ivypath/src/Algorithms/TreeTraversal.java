@@ -82,14 +82,12 @@ public class TreeTraversal {
             this.sName = sN;
         }
 
-        public void addLeft(BinaryTreeNode oC)
-        {
+        public void addLeft(BinaryTreeNode oC) {
             oC.oParent = this;
             oLeft = oC;
         }
 
-        public void addRight(BinaryTreeNode oC)
-        {
+        public void addRight(BinaryTreeNode oC) {
             oC.oParent = this;
             oRight = oC;
         }
